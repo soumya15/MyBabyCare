@@ -1,6 +1,27 @@
 <resources>
-    <string name="app_name">MyBabyCare</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">My Baby Care</string>
     <string name="action_settings">Settings</string>
+
+    <string name="btn_shop_list">Shopping List</string>
+    <string name="btn_check_list">Check List</string>
+    <string name="btn_sleep_guide">Sleep Guide</string>
+    <string name="btn_baby_photos">Baby Photos</string>
+    <string name="btn_calendar">Calendar</string>
+
+    <string name = "btn_add_new_item">Add new items</string>
+    <string name = "btn_search_existing">Search for existing items</string>
+    <string name = "btn_favorites">Favorites</string>
+
+    <string name = "tv_prod_name">Product Name</string>
+    <string name = "tv_category">Category</string>
+    <string name = "tv_brand">Brand</string>
+    <string name = "tv_item_count">Item Count</string>
+    <string name = "tv_purchase_date">Purchase Date</string>
+    <string name = "tv_expiry_date">Expiry Date</string>
+    <string name = "tv_store_location">Store Location</string>
+    <string name = "tv_reminder">Need a Reminder?</string>
+    <string name = "tv_favorites">Add to favorites?</string>
+    <string name = "btn_add">Add</string>
+
+
 </resources>

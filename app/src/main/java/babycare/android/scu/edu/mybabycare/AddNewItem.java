@@ -1,31 +1,18 @@
 package babycare.android.scu.edu.mybabycare;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-
-public class MainActivity extends ActionBarActivity {
-
+/**
+ * Created by akshu on 5/10/15.
+ */
+public class AddNewItem extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    public void openShoppingList(View view){
-        Intent shopListIntent = new Intent(this,ShoppingList.class);
-        startActivity(shopListIntent);
-
-    }
-
-    public void openCalendar(View view){
-        Intent calendarIntent = new Intent(this,DisplayCalendar.class);
-        startActivity(calendarIntent);
-
+        setContentView(R.layout.add_new_item);
     }
 
     @Override

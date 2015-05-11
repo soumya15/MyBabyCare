@@ -3,9 +3,69 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="#ffffffff">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:text="@string/btn_shop_list"
+        android:id="@+id/button"
+        android:layout_marginTop="28dp"
+        android:background="#ffcfce52"
+        android:textSize="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="openShoppingList"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:text="@string/btn_sleep_guide"
+        android:id="@+id/button2"
+        android:background="#ffcfce52"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/button"
+        android:layout_alignParentEnd="true"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:text="@string/btn_check_list"
+        android:id="@+id/button3"
+        android:layout_below="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_marginTop="50dp"
+        android:background="#ffcfce52"
+        android:textSize="15dp"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:text="@string/btn_calendar"
+        android:id="@+id/button4"
+        android:background="#ffcfce52"
+        android:textSize="15dp"
+        android:onClick="openCalendar"
+        android:layout_alignTop="@+id/button3"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="85dp"
+        android:text="@string/btn_baby_photos"
+        android:id="@+id/button5"
+        android:background="#ffcfce52"
+        android:textSize="15dp"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView3"
+        android:background="@drawable/baby_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
