@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShoppingList" android:label="Shopping List"/>
-        <activity android:name=".AddNewItem" android:label="Add New Item"/>
-        <activity android:name=".DisplayCalendar" android:label="Calendar"/>
+        <activity android:name=".shopping.Activities.ShoppingList" android:label="Shopping List"/>
+        <activity android:name=".shopping.Activities.AddNewItem" android:label="Add New Item"/>
+        <activity android:name=".calendar.DisplayCalendar" android:label="Calendar"/>
 
     </application>
 

@@ -1,18 +1,21 @@
-package babycare.android.scu.edu.mybabycare;
+package babycare.android.scu.edu.mybabycare.calendar;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import babycare.android.scu.edu.mybabycare.R;
+
 /**
  * Created by akshu on 5/10/15.
  */
-public class AddNewItem extends Activity{
+public class DisplayCalendar extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_new_item);
+        setContentView(R.layout.calendar_layout);
     }
 
     @Override

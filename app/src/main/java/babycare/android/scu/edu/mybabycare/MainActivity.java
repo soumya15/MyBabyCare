@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import babycare.android.scu.edu.mybabycare.calendar.DisplayCalendar;
+import babycare.android.scu.edu.mybabycare.shopping.Activities.ShoppingList;
+
 
 public class MainActivity extends ActionBarActivity {
 

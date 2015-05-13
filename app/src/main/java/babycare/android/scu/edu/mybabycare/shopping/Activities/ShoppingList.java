@@ -1,4 +1,4 @@
-package babycare.android.scu.edu.mybabycare;
+package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import babycare.android.scu.edu.mybabycare.R;
 
 /**
  * Created by akshu on 5/8/15.
