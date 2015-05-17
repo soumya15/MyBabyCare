@@ -23,5 +23,7 @@
     <string name = "tv_favorites">Add to favorites?</string>
     <string name = "btn_add">Add</string>
 
+    <string name="btn_store_location">Select Store</string>
+    <string name="title_activity_store_location">Map</string>
 
 </resources>

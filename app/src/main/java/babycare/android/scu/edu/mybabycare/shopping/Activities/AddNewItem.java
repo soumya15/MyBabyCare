@@ -1,6 +1,7 @@
 package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 /**
  * Created by akshu on 5/10/15.
  */
-public class AddNewItem extends Activity{
+public class AddNewItem extends Activity {
 
     ItemDbHelper itemDbHelper = null;
 
@@ -31,32 +32,37 @@ public class AddNewItem extends Activity{
         //initialize the DB helper class object
         itemDbHelper = new ItemDbHelper(this);
         setContentView(R.layout.add_new_item);
-        List<String> brandNames =  itemDbHelper.getAllBrands();
-        AutoCompleteTextView brandName = (AutoCompleteTextView) findViewById(R.id.editText5);
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,brandNames);
+        List<String> brandNames = itemDbHelper.getAllBrands();
+        AutoCompleteTextView brandName = (AutoCompleteTextView) findViewById(R.id.act_brand);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, brandNames);
         brandName.setAdapter(adapter);
-        Button addItemBtn = (Button)findViewById(R.id.addItemBtn);
+        Button addItemBtn = (Button) findViewById(R.id.addItemBtn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Item item = new Item();
-                item.setProductName(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.editText))));
-                item.setCategory(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.editText4))));
-                item.setBrandName(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.editText5))));
-                item.setItemCount(Integer.parseInt(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.editText6)))));
-                item.setReminderSet(CommonUtil.isCheckBoxSelected(((CheckBox) findViewById(R.id.checkBox))));
-                item.setFavorite(CommonUtil.isCheckBoxSelected(((CheckBox) findViewById(R.id.checkBox1))));
+                item.setProductName(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.et_prodName))));
+                item.setCategory(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.ed_category))));
+                item.setBrandName(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.act_brand))));
+                item.setItemCount(Integer.parseInt(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.et_itemCount)))));
+                item.setReminderSet(CommonUtil.isCheckBoxSelected(((CheckBox) findViewById(R.id.cb_reminder))));
+                item.setFavorite(CommonUtil.isCheckBoxSelected(((CheckBox) findViewById(R.id.cb_favorites))));
                 item.setExpiryDate("7/14/2015");
                 item.setPurchaseDate("5/14/2015");
                 try {
                     itemDbHelper.addItem(item);
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     System.out.println("item add unsuccessful");
                 }
 
             }
         });
 
+    }
+
+    public void selectStoreLocation(View view) {
+        Intent mapIntent = new Intent(this, StoreLocation.class);
+        startActivity(mapIntent);
     }
 
     @Override

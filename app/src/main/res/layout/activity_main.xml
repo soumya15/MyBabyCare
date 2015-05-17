@@ -11,7 +11,7 @@
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:text="@string/btn_shop_list"
-        android:id="@+id/button"
+        android:id="@+id/btn_shopList"
         android:layout_marginTop="28dp"
         android:background="#ffcfce52"
         android:textSize="15dp"
@@ -22,18 +22,18 @@
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:text="@string/btn_sleep_guide"
-        android:id="@+id/button2"
+        android:id="@+id/btn_sleepGuide"
         android:background="#ffcfce52"
         android:textSize="15dp"
-        android:layout_alignTop="@+id/button"
+        android:layout_alignTop="@+id/btn_shopList"
         android:layout_alignParentEnd="true"/>
     <Button
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:text="@string/btn_check_list"
-        android:id="@+id/button3"
-        android:layout_below="@+id/button"
-        android:layout_alignEnd="@+id/button"
+        android:id="@+id/btn_checkList"
+        android:layout_below="@+id/btn_shopList"
+        android:layout_alignEnd="@+id/btn_shopList"
         android:layout_marginTop="50dp"
         android:background="#ffcfce52"
         android:textSize="15dp"/>
@@ -41,22 +41,22 @@
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:text="@string/btn_calendar"
-        android:id="@+id/button4"
+        android:id="@+id/btn_calendar"
         android:background="#ffcfce52"
         android:textSize="15dp"
         android:onClick="openCalendar"
-        android:layout_alignTop="@+id/button3"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2" />
+        android:layout_alignTop="@+id/btn_checkList"
+        android:layout_alignLeft="@+id/btn_sleepGuide"
+        android:layout_alignStart="@+id/btn_sleepGuide" />
 
     <Button
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:text="@string/btn_baby_photos"
-        android:id="@+id/button5"
+        android:id="@+id/btn_babyPhotos"
         android:background="#ffcfce52"
         android:textSize="15dp"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/btn_checkList"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp" />
@@ -64,7 +64,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/imageView3"
+        android:id="@+id/img_babyIcon"
         android:background="@drawable/baby_icon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
