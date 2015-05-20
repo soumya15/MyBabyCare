@@ -102,7 +102,7 @@
         android:id="@+id/tv_reminder"
         android:layout_below="@+id/tv_storeLocation"
         android:layout_alignStart="@+id/tv_storeLocation"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:gravity="bottom|end"
         android:textColor="#ff0d6f0e"
         android:textSize="15dp"
@@ -129,7 +129,8 @@
         android:textStyle="bold"
         android:background="#ffcfce52"
         android:layout_below="@+id/tv_favorites"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
 
     <EditText
         android:layout_width="200dp"
@@ -185,14 +186,22 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
         android:text="@string/btn_store_location"
         android:id="@+id/btn_storeLocation"
-        android:layout_below="@+id/tv_expiryDate"
-        android:layout_toRightOf="@+id/cb_reminder"
-        android:layout_toEndOf="@+id/cb_reminder"
-        android:background="#ffcfce52"
-        android:onClick="selectStoreLocation" />
+        android:background="#ff9ca49f"
+        android:onClick="selectStoreLocation"
+        android:textSize="10dp"
+        android:layout_below="@+id/et_storeLocation"
+        android:layout_alignStart="@+id/et_storeLocation" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_storeLocation"
+        android:layout_toEndOf="@+id/tv_storeLocation"
+        android:layout_above="@+id/tv_reminder"
+      />
 
 </RelativeLayout>

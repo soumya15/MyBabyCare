@@ -11,11 +11,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.CommonUtil;
 import babycare.android.scu.edu.mybabycare.R;
+import babycare.android.scu.edu.mybabycare.shopping.Constants;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 
@@ -25,6 +27,9 @@ import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 public class AddNewItem extends Activity {
 
     ItemDbHelper itemDbHelper = null;
+    double latitude;
+    double longitude;
+    EditText storeTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,13 @@ public class AddNewItem extends Activity {
                 item.setFavorite(CommonUtil.isCheckBoxSelected(((CheckBox) findViewById(R.id.cb_favorites))));
                 item.setExpiryDate("7/14/2015");
                 item.setPurchaseDate("5/14/2015");
+                item.setStoreAddress(CommonUtil.getValueFromEditText(((EditText)findViewById(R.id.et_storeLocation))));
+                item.setStoreLatitude(String.valueOf(latitude));
+                item.setStoreLongitude(String.valueOf(longitude));
+
                 try {
                     itemDbHelper.addItem(item);
+                    Toast.makeText(getBaseContext(),"Item added successfully", Toast.LENGTH_SHORT).show();
                 } catch (Exception ex) {
                     System.out.println("item add unsuccessful");
                 }
@@ -62,7 +72,19 @@ public class AddNewItem extends Activity {
 
     public void selectStoreLocation(View view) {
         Intent mapIntent = new Intent(this, StoreLocation.class);
-        startActivity(mapIntent);
+        startActivityForResult(mapIntent,Constants.RESULT_CODE_ADDMAPTOITEM);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == Constants.RESULT_CODE_ADDMAPTOITEM){
+            if(resultCode == Activity.RESULT_OK){
+                latitude = data.getDoubleExtra(Constants.LATITUDE_KEY,0);
+                longitude = data.getDoubleExtra(Constants.LONGITUDE_KEY,0);
+                String address = data.getStringExtra(Constants.ADDRESS_KEY);
+                storeTitle = (EditText)findViewById(R.id.et_storeLocation);
+                storeTitle.setText(address);
+            }
+        }
     }
 
     @Override

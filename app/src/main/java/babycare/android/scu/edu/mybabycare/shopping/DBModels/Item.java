@@ -17,7 +17,9 @@ public class Item {
     private Integer itemCount;
     private String purchaseDate;
     private String expiryDate;
-    private String storeLocation;
+    private String storeAddress;
+    private String storeLatitude;
+    private String storeLongitude;
     private boolean isReminderSet;
     private boolean isFavorite;
 
@@ -85,12 +87,28 @@ public class Item {
         this.expiryDate = expiryDate;
     }
 
-    public String getStoreLocation() {
-        return storeLocation;
+    public String getStoreAddress() {
+        return storeAddress;
     }
 
-    public void setStoreLocation(String storeLocation) {
-        this.storeLocation = storeLocation;
+    public String getStoreLongitude() {
+        return storeLongitude;
+    }
+
+    public void setStoreLongitude(String storeLongitude) {
+        this.storeLongitude = storeLongitude;
+    }
+
+    public String getStoreLatitude() {
+        return storeLatitude;
+    }
+
+    public void setStoreLatitude(String storeLatitude) {
+        this.storeLatitude = storeLatitude;
+    }
+
+    public void setStoreAddress(String storeLocation) {
+        this.storeAddress = storeLocation;
     }
 
     public boolean isFavorite() {
@@ -105,7 +123,7 @@ public class Item {
         //default constructor
     }
 
-    public Item(Integer productId, String productName, String category, String brandName, Integer itemCount, String purchaseDate, String expiryDate, String storeLocation, boolean isReminderSet, boolean isFavorite) {
+    public Item(Integer productId, String productName, String category, String brandName, Integer itemCount, String purchaseDate, String expiryDate, String storeAddress, String storeLatitude, String storeLongitude, boolean isReminderSet, boolean isFavorite) {
         this.productId = productId;
         this.productName = productName;
         this.category = category;
@@ -113,7 +131,9 @@ public class Item {
         this.itemCount = itemCount;
         this.purchaseDate = purchaseDate;
         this.expiryDate = expiryDate;
-        this.storeLocation = storeLocation;
+        this.storeAddress = storeAddress;
+        this.storeLatitude = storeLatitude;
+        this.storeLongitude = storeLongitude;
         this.isReminderSet = isReminderSet;
         this.isFavorite = isFavorite;
     }

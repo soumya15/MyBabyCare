@@ -1,5 +1,9 @@
 package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -23,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import babycare.android.scu.edu.mybabycare.R;
+import babycare.android.scu.edu.mybabycare.shopping.Constants;
 
 /***
  * This class opens the map, allowing the user to type in the preferred store and select its location.
@@ -66,6 +72,50 @@ public class StoreLocation extends FragmentActivity {
 
         });
 
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+
+                final double mLatitude = marker.getPosition().latitude;
+                final double mLongitude = marker.getPosition().longitude;
+                final String address = marker.getTitle();
+
+                AlertDialog.Builder dialogAlert = new AlertDialog.Builder(StoreLocation.this    );
+
+
+                    dialogAlert.setMessage("Do you want to select this store? ");
+                    dialogAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent myCallerIntent = getIntent();
+                            Bundle myBundle = new Bundle();
+                            myBundle.putDouble(Constants.LATITUDE_KEY, mLatitude);
+                            myBundle.putDouble(Constants.LONGITUDE_KEY, mLongitude);
+                            myBundle.putString(Constants.ADDRESS_KEY, address);
+                            myCallerIntent.putExtras(myBundle);
+                            setResult(Activity.RESULT_OK,
+                                    myCallerIntent);
+                            finish();
+                            dialog.cancel();
+                        }
+                    });
+
+                    dialogAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                dialogAlert.show();
+
+                return false;
+            }
+        });
+
+
         /***
          *  Just showing Latitude/Longitude on longclick
          */
@@ -86,13 +136,13 @@ public class StoreLocation extends FragmentActivity {
         Geocoder fwdGeocoder = new Geocoder(this, Locale.US);
         List<Address> locations = null;
         try {
-            double[] boundary = getBoundingBox(currentLocation.latitude,currentLocation.longitude,48280); // Boundary of 30 miles around the center
+            double[] boundary = getBoundingBox(currentLocation.latitude, currentLocation.longitude, 48280); // Boundary of 30 miles around the center
 
-            locations = fwdGeocoder.getFromLocationName(criteria, 7, boundary[0], boundary[1], boundary[2],boundary[3]);
+            locations = fwdGeocoder.getFromLocationName(criteria, 7, boundary[0], boundary[1], boundary[2], boundary[3]);
             Iterator<Address> itr = locations.iterator();
             while (itr.hasNext()) {
                 Address a = itr.next();
-                String markerMessage = criteria + "," + a.getAddressLine(1);
+                String markerMessage =  a.getAddressLine(0) + "," + a.getAddressLine(1);
                 if (null != mMap) {
                     mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(a.getLatitude(), a.getLongitude()))
@@ -192,8 +242,4 @@ public class StoreLocation extends FragmentActivity {
 
         return boundingBox;
     }
-
-
-
-
 }

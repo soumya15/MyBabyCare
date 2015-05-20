@@ -22,7 +22,9 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     public static final String ITEM_COUNT = "item_count";
     public static final String PURCHASE_DATE = "purchase_date";
     public static final String EXPIRY_DATE = "expiry_date";
-    public static final String STORE_LOCATION = "store_location";
+    public static final String STORE_ADDRESS = "store_address";
+    public static final String STORE_LATITUDE = "store_latitude";
+    public static final String STORE_LONGITUDE = "store_longitude";
     public static final String REMINDER_SET = "reminder_set";
     public static final String IS_FAVORITE = "is_favorite";
     public static final String DATABASE_TABLE = "item_details";
@@ -31,15 +33,18 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase db = null;
 
 
-    private static final String DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s (" +    "  %s integer primary key autoincrement, " +    "  %s text,"+    "  %s text,"+    "  %s text,"+    "  %s integer," +    "  %s text,"+    "  %s text,"+    "  %s text,"+    "  %s integer,"+    "  %s integer) ",DATABASE_TABLE, PRODUCT_ID, PRODUCT_NAME, CATEGORY,BRAND_NAME,ITEM_COUNT,PURCHASE_DATE,EXPIRY_DATE,STORE_LOCATION,REMINDER_SET,IS_FAVORITE);
+    private static final String DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s (" + "  %s integer primary key autoincrement, " + "  %s text," + "  %s text," + "  %s text," + "  %s integer," + "  %s text," + "  %s text," + "  %s text," + " %s text," + "  %s text," + "  %s integer," + "  %s integer) ", DATABASE_TABLE, PRODUCT_ID, PRODUCT_NAME, CATEGORY, BRAND_NAME, ITEM_COUNT, PURCHASE_DATE, EXPIRY_DATE, STORE_ADDRESS, STORE_LATITUDE, STORE_LONGITUDE, REMINDER_SET, IS_FAVORITE);
+
     public ItemDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = this.getWritableDatabase();
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
@@ -53,7 +58,9 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         newValues.put(ItemDbHelper.PRODUCT_NAME, item.getProductName());
         newValues.put(ItemDbHelper.ITEM_COUNT, item.getItemCount());
         newValues.put(ItemDbHelper.BRAND_NAME, item.getBrandName());
-        newValues.put(ItemDbHelper.STORE_LOCATION, item.getStoreLocation());
+        newValues.put(ItemDbHelper.STORE_ADDRESS, item.getStoreAddress());
+        newValues.put(ItemDbHelper.STORE_LATITUDE, item.getStoreLatitude());
+        newValues.put(ItemDbHelper.STORE_LONGITUDE, item.getStoreLongitude());
         newValues.put(ItemDbHelper.EXPIRY_DATE, item.getExpiryDate());
         newValues.put(ItemDbHelper.PURCHASE_DATE, item.getPurchaseDate());
         newValues.put(ItemDbHelper.REMINDER_SET, item.isReminderSet());
@@ -72,7 +79,9 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         newValues.put(ItemDbHelper.PRODUCT_NAME, item.getProductName());
         newValues.put(ItemDbHelper.ITEM_COUNT, item.getItemCount());
         newValues.put(ItemDbHelper.BRAND_NAME, item.getBrandName());
-        newValues.put(ItemDbHelper.STORE_LOCATION, item.getStoreLocation());
+        newValues.put(ItemDbHelper.STORE_ADDRESS, item.getStoreAddress());
+        newValues.put(ItemDbHelper.STORE_LATITUDE, String.valueOf(item.getStoreLatitude()));
+        newValues.put(ItemDbHelper.STORE_LONGITUDE, String.valueOf(item.getStoreLongitude()));
         newValues.put(ItemDbHelper.EXPIRY_DATE, item.getExpiryDate());
         newValues.put(ItemDbHelper.PURCHASE_DATE, item.getPurchaseDate());
         newValues.put(ItemDbHelper.REMINDER_SET, item.isReminderSet());
@@ -103,7 +112,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         String whereClause = ItemDbHelper.PRODUCT_ID + "="+id;
         Item item = null;
         db = this.getWritableDatabase();
-        String[] resultColumns = {PRODUCT_ID, PRODUCT_NAME, CATEGORY,BRAND_NAME,ITEM_COUNT,PURCHASE_DATE,EXPIRY_DATE,STORE_LOCATION,REMINDER_SET,IS_FAVORITE};
+        String[] resultColumns = {PRODUCT_ID, PRODUCT_NAME, CATEGORY, BRAND_NAME, ITEM_COUNT, PURCHASE_DATE, EXPIRY_DATE, STORE_ADDRESS, REMINDER_SET, IS_FAVORITE};
         Cursor cursor = db.query(ItemDbHelper.DATABASE_TABLE, resultColumns, whereClause, null, null, null, null);
 
         if(cursor == null){
@@ -118,7 +127,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
             item.setItemCount(cursor.getInt(4));
             item.setExpiryDate(cursor.getString(6));
             item.setPurchaseDate(cursor.getString(5));
-            item.setStoreLocation(cursor.getString(7));
+            item.setStoreAddress(cursor.getString(7));
             item.setReminderSet(cursor.getInt(8) != 0);
             item.setFavorite(cursor.getInt(9) != 0);
         }
@@ -129,13 +138,13 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     public List<Item> getAllItems(String searchText) {
         List<Item> items = new ArrayList<Item>();
         // to be modified
-        String whereClause = ItemDbHelper.PRODUCT_NAME + "="+searchText;
+        String whereClause = ItemDbHelper.PRODUCT_NAME + "=" + searchText;
         Item item = null;
         db = this.getWritableDatabase();
-        String[] resultColumns = {PRODUCT_ID, PRODUCT_NAME, CATEGORY,BRAND_NAME,ITEM_COUNT,PURCHASE_DATE,EXPIRY_DATE,STORE_LOCATION,REMINDER_SET,IS_FAVORITE};
+        String[] resultColumns = {PRODUCT_ID, PRODUCT_NAME, CATEGORY, BRAND_NAME, ITEM_COUNT, PURCHASE_DATE, EXPIRY_DATE, STORE_ADDRESS, REMINDER_SET, IS_FAVORITE};
         Cursor cursor = db.query(ItemDbHelper.DATABASE_TABLE, resultColumns, whereClause, null, null, null, null);
 
-        if(cursor == null){
+        if (cursor == null) {
             return items;
         }
         while (cursor.moveToNext()) {
@@ -147,8 +156,8 @@ public class ItemDbHelper extends SQLiteOpenHelper {
             item.setItemCount(cursor.getInt(4));
             item.setExpiryDate(cursor.getString(6));
             item.setPurchaseDate(cursor.getString(5));
-            item.setStoreLocation(cursor.getString(7));
-            item.setReminderSet(cursor.getInt(8)!=0);
+            item.setStoreAddress(cursor.getString(7));
+            item.setReminderSet(cursor.getInt(8) != 0);
             item.setFavorite(cursor.getInt(9) != 0);
             items.add(item);
         }
