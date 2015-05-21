@@ -30,7 +30,7 @@
         android:textSize="17dp"
         android:gravity="center"
         android:background="#ffcfce52"
-        android:textStyle="bold" />
+        android:textStyle="bold"
         android:onClick="showSearchView"/>
 
     <Button

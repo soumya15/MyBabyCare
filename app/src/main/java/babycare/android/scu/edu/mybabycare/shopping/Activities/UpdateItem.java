@@ -23,7 +23,7 @@ import babycare.android.scu.edu.mybabycare.CommonUtil;
 import babycare.android.scu.edu.mybabycare.R;
 import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
 import babycare.android.scu.edu.mybabycare.calendar.DBUtils.CalendarDbHelper;
-import babycare.android.scu.edu.mybabycare.shopping.Constants;
+import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 
@@ -176,15 +176,15 @@ public class UpdateItem extends FragmentActivity {
 
     public void selectStoreLocation(View view) {
         Intent mapIntent = new Intent(this, StoreLocation.class);
-        startActivityForResult(mapIntent, Constants.RESULT_CODE_ADDMAPTOITEM);
+        startActivityForResult(mapIntent, CommonConstants.RESULT_CODE_ADDMAPTOITEM);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == Constants.RESULT_CODE_ADDMAPTOITEM){
+        if(requestCode == CommonConstants.RESULT_CODE_ADDMAPTOITEM){
             if(resultCode == Activity.RESULT_OK){
-                latitude = data.getDoubleExtra(Constants.LATITUDE_KEY,0);
-                longitude = data.getDoubleExtra(Constants.LONGITUDE_KEY,0);
-                String address = data.getStringExtra(Constants.ADDRESS_KEY);
+                latitude = data.getDoubleExtra(CommonConstants.LATITUDE_KEY,0);
+                longitude = data.getDoubleExtra(CommonConstants.LONGITUDE_KEY,0);
+                String address = data.getStringExtra(CommonConstants.ADDRESS_KEY);
                 storeTitle = (EditText)findViewById(R.id.et_storeLocation);
                 storeTitle.setText(address);
             }

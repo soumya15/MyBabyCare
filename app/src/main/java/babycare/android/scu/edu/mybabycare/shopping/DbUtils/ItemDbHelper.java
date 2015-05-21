@@ -167,4 +167,42 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         }
         return items;
     }
+
+    /***
+     *
+     * @return list of items for which proximity alert has been set
+     */
+
+    //TO-DO : Need to return just needed columns instead of all
+    //TO-DO : Add where clause based on expiry date
+
+    public List<Item> getItemsForProximityAlert(){
+
+        List<Item> items = new ArrayList<Item>();
+        db = this.getReadableDatabase();
+        String[] resultColumns = {PRODUCT_ID, PRODUCT_NAME, CATEGORY, BRAND_NAME, ITEM_COUNT, PURCHASE_DATE, EXPIRY_DATE, STORE_ADDRESS,STORE_LATITUDE,STORE_LONGITUDE, REMINDER_SET, IS_FAVORITE};
+        Cursor cursor = db.query(ItemDbHelper.DATABASE_TABLE,resultColumns,null,null,null,null,null);
+        Item item = null;
+        if(cursor == null){
+            return items;
+        }
+
+        while (cursor.moveToNext()){
+            item = new Item();
+            item.setProductId(cursor.getInt(0));
+            item.setProductName(cursor.getString(1));
+            item.setCategory(cursor.getString(2));
+            item.setBrandName(cursor.getString(3));
+            item.setItemCount(cursor.getInt(4));
+            item.setExpiryDate(cursor.getString(6));
+            item.setPurchaseDate(cursor.getString(5));
+            item.setStoreAddress(cursor.getString(7));
+            item.setStoreLatitude(cursor.getString(8));
+            item.setStoreLongitude(cursor.getString(9));
+            item.setReminderSet(cursor.getInt(10) != 0);
+            item.setFavorite(cursor.getInt(11) != 0);
+            items.add(item);
+        }
+        return items;
+    }
 }

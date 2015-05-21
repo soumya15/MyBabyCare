@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import babycare.android.scu.edu.mybabycare.R;
-import babycare.android.scu.edu.mybabycare.shopping.Constants;
+import babycare.android.scu.edu.mybabycare.CommonConstants;
 
 /***
  * This class opens the map, allowing the user to type in the preferred store and select its location.
@@ -86,15 +86,16 @@ public class StoreLocation extends FragmentActivity {
                 AlertDialog.Builder dialogAlert = new AlertDialog.Builder(StoreLocation.this    );
 
 
-                    dialogAlert.setMessage("Do you want to select this store? ");
+                    dialogAlert.setTitle("Select this store:");
+                    dialogAlert.setMessage(marker.getTitle());
                     dialogAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent myCallerIntent = getIntent();
                             Bundle myBundle = new Bundle();
-                            myBundle.putDouble(Constants.LATITUDE_KEY, mLatitude);
-                            myBundle.putDouble(Constants.LONGITUDE_KEY, mLongitude);
-                            myBundle.putString(Constants.ADDRESS_KEY, address);
+                            myBundle.putDouble(CommonConstants.LATITUDE_KEY, mLatitude);
+                            myBundle.putDouble(CommonConstants.LONGITUDE_KEY, mLongitude);
+                            myBundle.putString(CommonConstants.ADDRESS_KEY, address);
                             myCallerIntent.putExtras(myBundle);
                             setResult(Activity.RESULT_OK,
                                     myCallerIntent);

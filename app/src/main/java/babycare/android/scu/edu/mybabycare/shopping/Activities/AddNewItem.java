@@ -2,7 +2,6 @@ package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
@@ -25,7 +23,7 @@ import babycare.android.scu.edu.mybabycare.CommonUtil;
 import babycare.android.scu.edu.mybabycare.R;
 import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
 import babycare.android.scu.edu.mybabycare.calendar.DBUtils.CalendarDbHelper;
-import babycare.android.scu.edu.mybabycare.shopping.Constants;
+import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 
@@ -36,7 +34,6 @@ public class AddNewItem extends FragmentActivity {
 
     ItemDbHelper itemDbHelper = null;
     static String date = "";
-    static boolean isPurchaseBtn = false, isExpiryBtn =false;
     double latitude;
     double longitude;
     EditText storeTitle;
@@ -89,31 +86,29 @@ public class AddNewItem extends FragmentActivity {
         purchaseDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isPurchaseBtn = true;
-                showDatePicker();
+                showDatePicker("purchaseDate");
 
             }
         });
         expiryDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isExpiryBtn = true;
-                showDatePicker();
+                showDatePicker("expiryDate");
             }
         });
     }
 
     public void selectStoreLocation(View view) {
         Intent mapIntent = new Intent(this, StoreLocation.class);
-        startActivityForResult(mapIntent,Constants.RESULT_CODE_ADDMAPTOITEM);
+        startActivityForResult(mapIntent, CommonConstants.RESULT_CODE_ADDMAPTOITEM);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == Constants.RESULT_CODE_ADDMAPTOITEM){
+        if(requestCode == CommonConstants.RESULT_CODE_ADDMAPTOITEM){
             if(resultCode == Activity.RESULT_OK){
-                latitude = data.getDoubleExtra(Constants.LATITUDE_KEY,0);
-                longitude = data.getDoubleExtra(Constants.LONGITUDE_KEY,0);
-                String address = data.getStringExtra(Constants.ADDRESS_KEY);
+                latitude = data.getDoubleExtra(CommonConstants.LATITUDE_KEY,0);
+                longitude = data.getDoubleExtra(CommonConstants.LONGITUDE_KEY,0);
+                String address = data.getStringExtra(CommonConstants.ADDRESS_KEY);
                 storeTitle = (EditText)findViewById(R.id.et_storeLocation);
                 storeTitle.setText(address);
             }
@@ -141,7 +136,7 @@ public class AddNewItem extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private void showDatePicker() {
+    private void showDatePicker(String type) {
         date = "";
         DatePickerFragment date = new DatePickerFragment();
         /**
@@ -156,26 +151,29 @@ public class AddNewItem extends FragmentActivity {
         /**
          * Set Call back to capture selected date
          */
-        date.setCallBack(ondate);
+        if(type.equals("purchaseDate")){
+            date.setCallBack(onPurchaseDate);
+        } else {
+            date.setCallBack(onExpiryDate);
+        }
         date.show(getSupportFragmentManager(), "Date Picker");
     }
 
-    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+    DatePickerDialog.OnDateSetListener onPurchaseDate = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            int editView = 0;
             date = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth)+ "/" + String.valueOf(year);
-            if(isPurchaseBtn){
-                editView = R.id.purchaseDateTxt;
-                isPurchaseBtn = false;
-            }
-            if(isExpiryBtn){
-                editView = R.id.expiryDateTxt;
-                isExpiryBtn = false;
-            }
+            CommonUtil.setValueOfEditText(((EditText)findViewById(R.id.purchaseDateTxt)),date);
+        }
+    };
 
-            CommonUtil.setValueOfEditText(((EditText) findViewById(editView)),date);
+    DatePickerDialog.OnDateSetListener onExpiryDate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            date = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth)+ "/" + String.valueOf(year);
+            CommonUtil.setValueOfEditText(((EditText)findViewById(R.id.expiryDateTxt)),date);
         }
     };
 }
