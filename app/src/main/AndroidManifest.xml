@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="babycare.android.scu.edu.mybabycare">
+    package="babycare.android.scu.edu.mybabycare" >
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -27,8 +27,14 @@
             android:name=".shopping.Activities.AddNewItem"
             android:label="Add New Item" />
         <activity
-            android:name=".calendar.DisplayCalendar"
-            android:label="Calendar" />
+            android:name=".shopping.Activities.UpdateItem"
+            android:label="Update Item"/>
+        <activity
+            android:name=".shopping.Activities.SearchList"
+            android:label="SearchItems"/>
+        <activity
+            android:name=".calendar.Activities.CalendarActivity"
+            android:label="Calendar"/>
         <activity
             android:name=".shopping.Activities.StoreLocation"
             android:label="Store Location" />
@@ -55,4 +61,3 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
-

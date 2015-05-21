@@ -25,5 +25,9 @@
 
     <string name="btn_store_location">Select Store</string>
     <string name="title_activity_store_location">Map</string>
+    <string name="category">Category:</string>
+    <string name="itemCount">Item Count:</string>
+    <string name="edit">Edit</string>
+    <string name="by">By</string>
 
 </resources>

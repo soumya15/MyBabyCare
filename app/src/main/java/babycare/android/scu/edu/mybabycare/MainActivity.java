@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import babycare.android.scu.edu.mybabycare.calendar.DisplayCalendar;
+import babycare.android.scu.edu.mybabycare.calendar.Activities.CalendarActivity;
 import babycare.android.scu.edu.mybabycare.shopping.Activities.ShoppingList;
 
 
@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
     }
 
     public void openCalendar(View view){
-        Intent calendarIntent = new Intent(this,DisplayCalendar.class);
+        Intent calendarIntent = new Intent(this,CalendarActivity.class);
         startActivity(calendarIntent);
 
     }

@@ -52,7 +52,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     }
 
     //add a new item
-    public void addItem(Item item) {
+    public Item addItem(Item item) {
         db = this.getWritableDatabase();
         ContentValues newValues = new ContentValues();
         newValues.put(ItemDbHelper.PRODUCT_NAME, item.getProductName());
@@ -70,6 +70,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         long row = db.insert(ItemDbHelper.DATABASE_TABLE, null, newValues);
         System.out.println("rows inserted"+row);
         db.close();
+        return item;
     }
     //update Item details
     public void updateItem(Item item) {
@@ -138,13 +139,16 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     public List<Item> getAllItems(String searchText) {
         List<Item> items = new ArrayList<Item>();
         // to be modified
-        String whereClause = ItemDbHelper.PRODUCT_NAME + "=" + searchText;
+        String whereClause = null;
+        if(!searchText.equalsIgnoreCase("")){
+            whereClause = ItemDbHelper.PRODUCT_NAME + " LIKE '%"+searchText+"%' OR "+ItemDbHelper.BRAND_NAME+" LIKE '%"+searchText+"%' OR "+ItemDbHelper.CATEGORY+" LIKE '%"+searchText+"%'";
+        }
         Item item = null;
         db = this.getWritableDatabase();
         String[] resultColumns = {PRODUCT_ID, PRODUCT_NAME, CATEGORY, BRAND_NAME, ITEM_COUNT, PURCHASE_DATE, EXPIRY_DATE, STORE_ADDRESS, REMINDER_SET, IS_FAVORITE};
         Cursor cursor = db.query(ItemDbHelper.DATABASE_TABLE, resultColumns, whereClause, null, null, null, null);
 
-        if (cursor == null) {
+        if(cursor == null){
             return items;
         }
         while (cursor.moveToNext()) {

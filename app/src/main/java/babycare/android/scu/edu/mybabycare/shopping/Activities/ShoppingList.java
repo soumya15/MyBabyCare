@@ -25,6 +25,12 @@ public class ShoppingList extends Activity {
         startActivity(addViewIntent);
 
     }
+
+    public void showSearchView(View view){
+        Intent addViewIntent = new Intent(this,SearchList.class);
+        startActivity(addViewIntent);
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

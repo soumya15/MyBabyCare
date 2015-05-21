@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="#ffffffff">
@@ -203,5 +203,38 @@
         android:layout_toEndOf="@+id/tv_storeLocation"
         android:layout_above="@+id/tv_reminder"
       />
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/purchaseDateTxt"
+        android:layout_above="@+id/tv_expiryDate"
+        android:layout_toEndOf="@+id/et_itemCount"
+        android:layout_alignStart="@+id/et_itemCount"
+        android:editable="false"/>
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/expiryDateTxt"
+        android:gravity="bottom"
+        android:editable="false"
+        android:layout_above="@+id/tv_storeLocation"
+        android:layout_alignLeft="@+id/purchaseDateTxt"
+        android:layout_alignStart="@+id/purchaseDateTxt" />
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/purchaseDateBtn"
+        android:background="@drawable/download"
+        android:layout_alignBottom="@+id/purchaseDateTxt"
+        android:layout_toRightOf="@+id/purchaseDateTxt"
+        android:layout_toEndOf="@+id/purchaseDateTxt" />
 
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/expiryDateBtn"
+        android:background="@drawable/download"
+        android:layout_alignBottom="@+id/expiryDateTxt"
+        android:layout_toRightOf="@+id/expiryDateTxt"
+        android:layout_toEndOf="@+id/expiryDateTxt" />
 </RelativeLayout>
