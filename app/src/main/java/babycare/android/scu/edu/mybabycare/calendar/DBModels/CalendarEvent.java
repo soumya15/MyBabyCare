@@ -4,6 +4,7 @@ package babycare.android.scu.edu.mybabycare.calendar.DBModels;
  * Created by Soumya on 5/19/2015.
  */
 public class CalendarEvent {
+
     public String getEventDetails() {
         return eventDetails;
     }
@@ -29,7 +30,33 @@ public class CalendarEvent {
     }
 
     int eventID;
+    int parentEventID;
+    String parentEventName;
     String eventName;
+
+    public int getParentEventID() {
+        return parentEventID;
+    }
+
+    public void setParentEventID(int parentEventID) {
+        this.parentEventID = parentEventID;
+    }
+
+    public String getParentEventName() {
+        return parentEventName;
+    }
+
+    public void setParentEventName(String parentEventName) {
+        this.parentEventName = parentEventName;
+    }
+
+    public CalendarEvent(String parentEventName, int parentEventID,String eventName, String eventDate) {
+        this.parentEventID = parentEventID;
+        this.parentEventName = parentEventName;
+        this.eventName = eventName;
+        this.eventDate = eventDate;
+    }
+
     String eventDate;
     String eventDetails;
     public String getEventName() {

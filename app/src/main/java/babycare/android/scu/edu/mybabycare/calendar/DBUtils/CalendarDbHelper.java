@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
@@ -21,6 +18,8 @@ import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
 public class CalendarDbHelper extends SQLiteOpenHelper {
     public static final String EVENT_ID = "event_id";
     public static final String EVENT_NAME = "event_name";
+    public static final String PARENT_EVENT_ID = "parent_event_id";
+    public static final String PARENT_EVENT_NAME = "parent_event_name";
     public static final String EVENT_DATE = "event_date";
     public static final String EVENT_DETAILS = "event_details";
     public static final String DATABASE_TABLE = "calendar_events";
@@ -29,7 +28,7 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase db = null;
 
 
-    private static final String DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s (" +    "  %s integer primary key autoincrement, " +    "  %s text,"+    "  %s text,"+    "  %s varchar) ",DATABASE_TABLE, EVENT_ID, EVENT_NAME, EVENT_DATE,EVENT_DETAILS);
+    private static final String DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s (" +    "  %s integer primary key autoincrement, " +    "  %s integer,"+    "  %s text,"+    "  %s text,"+    "  %s text,"+    "  %s varchar) ",DATABASE_TABLE, EVENT_ID, PARENT_EVENT_ID, PARENT_EVENT_NAME, EVENT_NAME, EVENT_DATE,EVENT_DETAILS);
     public CalendarDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = this.getWritableDatabase();
@@ -49,6 +48,8 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
     public CalendarEvent addEvent(CalendarEvent calendarEvent) {
         db = this.getWritableDatabase();
         ContentValues newValues = new ContentValues();
+        newValues.put(CalendarDbHelper.PARENT_EVENT_ID, calendarEvent.getParentEventID());
+        newValues.put(CalendarDbHelper.PARENT_EVENT_NAME, calendarEvent.getParentEventName());
         newValues.put(CalendarDbHelper.EVENT_NAME, calendarEvent.getEventName());
         newValues.put(CalendarDbHelper.EVENT_DATE, calendarEvent.getEventDate());
         newValues.put(CalendarDbHelper.EVENT_DETAILS, calendarEvent.getEventDetails());
@@ -76,7 +77,7 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
         String whereClause = CalendarDbHelper.EVENT_ID + "="+id;
         CalendarEvent calendarEvent = null;
         db = this.getWritableDatabase();
-        String[] resultColumns = {EVENT_ID, EVENT_NAME, EVENT_DATE,EVENT_DETAILS};
+        String[] resultColumns = {EVENT_ID, EVENT_NAME, EVENT_DATE,EVENT_DETAILS,PARENT_EVENT_ID, PARENT_EVENT_NAME};
         Cursor cursor = db.query(CalendarDbHelper.DATABASE_TABLE, resultColumns, whereClause, null, null, null, null);
 
         if(cursor == null){
@@ -88,7 +89,32 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
             calendarEvent.setEventName(cursor.getString(1));
             calendarEvent.setEventDate(cursor.getString(2));
             calendarEvent.setEventDetails(cursor.getString(3));
+            calendarEvent.setParentEventID(cursor.getInt(4));
+            calendarEvent.setParentEventName(cursor.getString(4));
 
+        }
+        return calendarEvent;
+    }
+
+    // get calendarEvent by id
+    public CalendarEvent getCalendarEventByParentId(int id,String parentEventName) {
+        String whereClause = CalendarDbHelper.PARENT_EVENT_ID + "="+id+" OR "+CalendarDbHelper.PARENT_EVENT_NAME + " = "+parentEventName;
+        CalendarEvent calendarEvent = null;
+        db = this.getWritableDatabase();
+        String[] resultColumns = {EVENT_ID, EVENT_NAME, EVENT_DATE,EVENT_DETAILS,PARENT_EVENT_ID, PARENT_EVENT_NAME};
+        Cursor cursor = db.query(CalendarDbHelper.DATABASE_TABLE, resultColumns, whereClause, null, null, null, null);
+
+        if(cursor == null){
+            return calendarEvent;
+        }
+        while (cursor.moveToNext()) {
+            calendarEvent = new CalendarEvent();
+            calendarEvent.setEventID(cursor.getInt(0));
+            calendarEvent.setEventName(cursor.getString(1));
+            calendarEvent.setEventDate(cursor.getString(2));
+            calendarEvent.setEventDetails(cursor.getString(3));
+            calendarEvent.setParentEventID(cursor.getInt(4));
+            calendarEvent.setParentEventName(cursor.getString(5));
         }
         return calendarEvent;
     }
@@ -139,6 +165,8 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
                 calendarEvent.setEventName(cursor.getString(1));
                 calendarEvent.setEventDate(cursor.getString(2));
                 calendarEvent.setEventDetails(cursor.getString(3));
+                calendarEvent.setParentEventID(cursor.getInt(4));
+                calendarEvent.setParentEventName(cursor.getString(4));
                 calendarEvents.add(calendarEvent);
             }
         }catch(Exception e){

@@ -39,6 +39,10 @@
             android:name=".shopping.Activities.StoreLocation"
             android:label="Store Location" />
 
+        <activity android:name=".notification.Activities.NotificationActivity"/>
+        <service android:name=".notification.utils.ScheduleService" />
+        <service android:name=".notification.utils.NotifyService" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

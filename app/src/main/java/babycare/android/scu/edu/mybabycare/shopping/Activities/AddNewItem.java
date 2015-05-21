@@ -19,11 +19,12 @@ import android.widget.ImageButton;
 import java.util.Calendar;
 import java.util.List;
 
+import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.CommonUtil;
 import babycare.android.scu.edu.mybabycare.R;
 import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
 import babycare.android.scu.edu.mybabycare.calendar.DBUtils.CalendarDbHelper;
-import babycare.android.scu.edu.mybabycare.CommonConstants;
+import babycare.android.scu.edu.mybabycare.notification.utils.Scheduler;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 
@@ -34,13 +35,19 @@ public class AddNewItem extends FragmentActivity {
 
     ItemDbHelper itemDbHelper = null;
     static String date = "";
+    static boolean isPurchaseBtn = false, isExpiryBtn =false;
     double latitude;
     double longitude;
     EditText storeTitle;
+    private Scheduler scheduler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Create a new service client and bind our activity to this service
+        scheduler = new Scheduler(this);
+        scheduler.doBindService();
+
         //initialize the DB helper class object
         itemDbHelper = new ItemDbHelper(this);
         setContentView(R.layout.add_new_item);
@@ -69,9 +76,16 @@ public class AddNewItem extends FragmentActivity {
                 try {
                     item = itemDbHelper.addItem(item);
                     if(item.isReminderSet()){
-                        CalendarEvent calendarEvent = new CalendarEvent("Expiry of "+item.getProductName()+" ("+item.getBrandName()+") ",item.getExpiryDate());
-                        CalendarDbHelper calendarDbHelper = new CalendarDbHelper(v.getContext());
-                        calendarDbHelper.addEvent(calendarEvent);
+                        if(item.getExpiryDate() != "") {
+                            CalendarEvent calendarEvent = new CalendarEvent(CommonConstants.ITEM_EVENT_NAME, item.getProductId(), "Expiry of " + item.getProductName() + " (" + item.getBrandName() + ") ", item.getExpiryDate());
+                            CalendarDbHelper calendarDbHelper = new CalendarDbHelper(v.getContext());
+                            calendarDbHelper.addEvent(calendarEvent);
+                            Calendar c = Calendar.getInstance();
+                            c.setTime(item.getExpiryDateFormat());
+                            // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
+                            scheduler.setAlarmForNotification(c, "Time to buy a new item for your baby!!!" , calendarEvent.getEventName());
+                        }
+
                     }
                     CommonUtil.showOKDialog("Item Added Successfully",v.getContext());
                     Intent searchItemsIntent = new Intent(v.getContext(),SearchList.class);
@@ -176,6 +190,15 @@ public class AddNewItem extends FragmentActivity {
             CommonUtil.setValueOfEditText(((EditText)findViewById(R.id.expiryDateTxt)),date);
         }
     };
+
+    @Override
+    protected void onStop() {
+        // When our activity is stopped ensure we also stop the connection to the service
+        // this stops us leaking our activity into the system *bad*
+        if(scheduler != null)
+            scheduler.doUnbindService();
+        super.onStop();
+    }
 }
 
 
