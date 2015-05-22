@@ -38,6 +38,9 @@
         <activity
             android:name=".shopping.Activities.StoreLocation"
             android:label="Store Location" />
+        <activity
+            android:name=".checklist.Activities.AddEvent"
+            android:label="Add New CheckList Item" />
 
         <activity android:name=".notification.Activities.NotificationActivity"/>
         <service android:name=".notification.utils.ScheduleService" />

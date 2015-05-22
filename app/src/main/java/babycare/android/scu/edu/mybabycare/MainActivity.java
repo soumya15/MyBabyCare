@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.calendar.Activities.CalendarActivity;
+import babycare.android.scu.edu.mybabycare.checklist.Activities.AddEvent;
 import babycare.android.scu.edu.mybabycare.shopping.Activities.ShoppingList;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
@@ -52,6 +53,12 @@ public class MainActivity extends Activity {
     public void openShoppingList(View view){
         Intent shopListIntent = new Intent(this,ShoppingList.class);
         startActivity(shopListIntent);
+
+    }
+
+    public void openCheckList(View view){
+        Intent checkListIntent = new Intent(this,AddEvent.class);
+        startActivity(checkListIntent);
 
     }
 

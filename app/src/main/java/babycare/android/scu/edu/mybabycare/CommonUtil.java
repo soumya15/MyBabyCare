@@ -29,7 +29,7 @@ public class CommonUtil{
 
     public static void showOKDialog(String message,Context context){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setTitle("Pop Artist Directory");
+        alertDialogBuilder.setTitle("Baby Item:");
         alertDialogBuilder.setMessage(message);
             alertDialogBuilder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {

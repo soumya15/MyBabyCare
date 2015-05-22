@@ -30,4 +30,7 @@
     <string name="edit">Edit</string>
     <string name="by">By</string>
 
+    <string name="tv_eventName">Event Name</string>
+    <string name="tv_eventDate">Event Date</string>
+    <string name="tv_eventDetails">Event Details</string>
 </resources>

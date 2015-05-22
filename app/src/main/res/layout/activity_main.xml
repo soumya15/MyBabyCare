@@ -36,7 +36,8 @@
         android:layout_alignEnd="@+id/btn_shopList"
         android:layout_marginTop="50dp"
         android:background="#ffcfce52"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:onClick="openCheckList" />
     <Button
         android:layout_width="150dp"
         android:layout_height="85dp"
