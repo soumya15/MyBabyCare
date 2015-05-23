@@ -41,8 +41,10 @@
         <activity
             android:name=".checklist.Activities.AddEvent"
             android:label="Add New CheckList Item" />
-
-        <activity android:name=".notification.Activities.NotificationActivity"/>
+        <activity
+            android:name=".preferences.Activities.UserPreferencesActivity"
+            android:label="Settings" />
+        <activity android:name=".notification.Activities.NotificationActivity" />
         <service android:name=".notification.utils.ScheduleService" />
         <service android:name=".notification.utils.NotifyService" />
 
