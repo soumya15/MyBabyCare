@@ -5,7 +5,7 @@
     <string name="btn_shop_list">Shopping List</string>
     <string name="btn_check_list">Check List</string>
     <string name="btn_sleep_guide">Sleep Guide</string>
-    <string name="btn_baby_photos">Baby Photos</string>
+    <string name="btn_baby_photos">Photos</string>
     <string name="btn_calendar">Calendar</string>
 
     <string name = "btn_add_new_item">Add new items</string>
@@ -33,4 +33,7 @@
     <string name="tv_eventName">Event Name</string>
     <string name="tv_eventDate">Event Date</string>
     <string name="tv_eventDetails">Event Details</string>
+
+    <string name="btn_addEvent">Add New Event</string>
+    <string name="btn_viewEvents">View Existing Events</string>
 </resources>

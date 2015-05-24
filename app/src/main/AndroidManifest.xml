@@ -31,7 +31,7 @@
             android:label="Update Item"/>
         <activity
             android:name=".shopping.Activities.SearchList"
-            android:label="SearchItems"/>
+            android:label="Search Items"/>
         <activity
             android:name=".calendar.Activities.CalendarActivity"
             android:label="Calendar"/>
@@ -39,8 +39,17 @@
             android:name=".shopping.Activities.StoreLocation"
             android:label="Store Location" />
         <activity
-            android:name=".checklist.Activities.AddEvent"
-            android:label="Add New CheckList Item" />
+            android:name=".events.Activities.AddEvent"
+            android:label="Add New Event Item" />
+        <activity
+            android:name=".events.Activities.EventList"
+            android:label="Event List" />
+        <activity
+            android:name=".events.Activities.ViewEvents"
+            android:label="Events" />
+        <activity
+            android:name=".events.Activities.UpdateEvent"
+            android:label="Update Event" />
         <activity
             android:name=".preferences.Activities.UserPreferencesActivity"
             android:label="Settings" />

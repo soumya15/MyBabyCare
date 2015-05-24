@@ -1,4 +1,4 @@
-package babycare.android.scu.edu.mybabycare.checklist.DBModels;
+package babycare.android.scu.edu.mybabycare.events.DBModels;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,7 +11,7 @@ import java.util.Locale;
  */
 public class Event {
 
-    private Integer checkListId;
+    private Integer eventId;
     private String eventName;
     private String eventDate;
     private String eventDetails;
@@ -24,12 +24,12 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public Integer getCheckListId() {
-        return checkListId;
+    public Integer getEventId() {
+        return eventId;
     }
 
-    public void setCheckListId(Integer checkListId) {
-        this.checkListId = checkListId;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
 
     public String getEventDate() {
@@ -51,9 +51,9 @@ public class Event {
     public Event(){
         //default constructor
     }
-    public Event(String eventDetails, Integer checkListId, String eventName, String eventDate) {
+    public Event(String eventDetails, Integer eventId, String eventName, String eventDate) {
         this.eventDetails = eventDetails;
-        this.checkListId = checkListId;
+        this.eventId = eventId;
         this.eventName = eventName;
         this.eventDate = eventDate;
     }

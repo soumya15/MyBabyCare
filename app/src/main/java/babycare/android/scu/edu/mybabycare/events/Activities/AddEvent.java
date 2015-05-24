@@ -1,9 +1,8 @@
-package babycare.android.scu.edu.mybabycare.checklist.Activities;
+package babycare.android.scu.edu.mybabycare.events.Activities;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,12 +11,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import babycare.android.scu.edu.mybabycare.CommonUtil;
 import babycare.android.scu.edu.mybabycare.R;
-import babycare.android.scu.edu.mybabycare.checklist.DBModels.Event;
-import babycare.android.scu.edu.mybabycare.checklist.DBUtils.EventDbHelper;
+import babycare.android.scu.edu.mybabycare.events.DBModels.Event;
+import babycare.android.scu.edu.mybabycare.events.DBUtils.EventDbHelper;
 import babycare.android.scu.edu.mybabycare.shopping.Activities.DatePickerFragment;
 
 /**
@@ -37,7 +35,7 @@ public class AddEvent extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_checklist);
+        setContentView(R.layout.add_eventlist);
 
         eventDbHelper = new EventDbHelper(this);
         addEventName = (EditText) findViewById(R.id.et_eventName);
@@ -58,7 +56,7 @@ public class AddEvent extends FragmentActivity {
                     eventDbHelper.addEvent(event);
                     Toast.makeText(getBaseContext(),"Event created successfully",Toast.LENGTH_LONG).show();
                 } catch (Exception e){
-                    System.out.println("item add unsuccessful");
+                    System.out.println("Event add unsuccessful");
                     System.out.println(e.getMessage());
                     e.printStackTrace();
                 }

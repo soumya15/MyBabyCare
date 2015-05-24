@@ -1,13 +1,15 @@
-package babycare.android.scu.edu.mybabycare.checklist.DBUtils;
+package babycare.android.scu.edu.mybabycare.events.DBUtils;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import babycare.android.scu.edu.mybabycare.checklist.DBModels.Event;
+import java.util.ArrayList;
+import java.util.List;
 
+import babycare.android.scu.edu.mybabycare.events.DBModels.Event;
 /**
  * Created by akshu on 5/21/15.
  */
@@ -52,5 +54,41 @@ public class EventDbHelper extends SQLiteOpenHelper {
             db.close();
             return true;
         }
+    //get All events
+    public List<Event> getAllEvents() {
+        List<Event> events = new ArrayList<Event>();
+        Event event = null;
+        db = this.getWritableDatabase();
+        String[] resultColumns = {EVENT_ID, EVENT_NAME, EVENT_DATE, EVENT_DESC};
+        Cursor cursor = db.query(EventDbHelper.DATABASE_TABLE, resultColumns, null, null, null, null, null);
+
+        if(cursor == null){
+            return events;
+        }
+        while (cursor.moveToNext()) {
+            event = new Event();
+            event.setEventId(cursor.getInt(0));
+            event.setEventName(cursor.getString(1));
+            event.setEventDate(cursor.getString(2));
+            event.setEventDetails(cursor.getString(3));
+
+            events.add(event);
+        }
+        return events;
+    }
+
+    //update Event details
+    public void updateEvent(Event event) {
+        db = this.getWritableDatabase();
+        String whereClause = EventDbHelper.EVENT_ID + "="+event.getEventId();
+        ContentValues newValues = new ContentValues();
+        newValues.put(EventDbHelper.EVENT_NAME, event.getEventName());
+        newValues.put(EventDbHelper.EVENT_DATE, event.getEventDate());
+        newValues.put(EventDbHelper.EVENT_DESC, event.getEventDetails());
+
+        int i = db.update(EventDbHelper.DATABASE_TABLE, newValues, whereClause, null);
+
+        db.close();
+    }
 
 }
