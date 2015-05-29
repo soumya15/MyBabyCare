@@ -18,6 +18,7 @@ import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.calendar.Activities.CalendarActivity;
 import babycare.android.scu.edu.mybabycare.events.Activities.EventList;
+import babycare.android.scu.edu.mybabycare.photos.Activities.PhotoActivity;
 import babycare.android.scu.edu.mybabycare.preferences.Activities.UserPreferencesActivity;
 import babycare.android.scu.edu.mybabycare.preferences.Activities.UserPreferencesFragment;
 import babycare.android.scu.edu.mybabycare.shopping.Activities.ShoppingList;
@@ -105,6 +106,12 @@ public class MainActivity extends ActionBarActivity {
     public void openCheckList(View view){
         Intent checkListIntent = new Intent(this,EventList.class);
         startActivity(checkListIntent);
+
+    }
+
+    public void openPhotoGallery(View view){
+        Intent photoIntent = new Intent(this,PhotoActivity.class);
+        startActivity(photoIntent);
 
     }
 

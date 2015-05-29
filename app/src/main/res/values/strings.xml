@@ -36,4 +36,9 @@
 
     <string name="btn_addEvent">Add New Event</string>
     <string name="btn_viewEvents">View Existing Events</string>
+    <string name="btn_savePhoto">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="tv_photoCaption">Photo Caption</string>
+
+
 </resources>

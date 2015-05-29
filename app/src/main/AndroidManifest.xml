@@ -53,6 +53,18 @@
         <activity
             android:name=".preferences.Activities.UserPreferencesActivity"
             android:label="Settings" />
+        <activity
+            android:name=".photos.Activities.PhotoActivity"
+            android:label="Photos" />
+        <activity
+            android:name=".photos.Activities.AddPhotoDetails"
+            android:label="Photo Details" />
+        <activity
+            android:name=".photos.Activities.ViewPhotoDetails"
+            android:label="Photo Details" />
+
+
+
         <activity android:name=".notification.Activities.NotificationActivity" />
         <service android:name=".notification.utils.ScheduleService" />
         <service android:name=".notification.utils.NotifyService" />
@@ -77,5 +89,8 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>
