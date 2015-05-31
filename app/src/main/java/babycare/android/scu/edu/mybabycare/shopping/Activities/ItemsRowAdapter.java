@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import java.util.HashSet;
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.R;
@@ -22,10 +24,13 @@ import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 //CustomAdapter to display item details on the list view
 public class ItemsRowAdapter extends ArrayAdapter<Item> {
     private final List<Item> items;
+    CheckBox checkBox;
+    static HashSet<Integer> toDeleteSet;
 
     public ItemsRowAdapter(Context context, int resource, List<Item> items) {
         super(context, resource, items);
 
+        toDeleteSet = new HashSet<Integer>();
         System.out.println("items recieved count : "+items.size());
         this.items = items;
     }
@@ -39,6 +44,22 @@ public class ItemsRowAdapter extends ArrayAdapter<Item> {
         TextView itemCount = (TextView) row.findViewById(R.id.textViewItemCount);
         TextView brand = (TextView) row.findViewById(R.id.textViewBrandName);
         TextView category = (TextView) row.findViewById(R.id.textViewCategory);
+        checkBox = (CheckBox)row.findViewById(R.id.chkProdId);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Item i = items.get(pos);
+                if(isChecked){
+
+                    toDeleteSet.add(i.getProductId());
+                } else
+                {
+
+                    toDeleteSet.remove(i.getProductId());
+                }
+            }
+        });
+
         prodName.setText(items.get(position).getProductName()==null?"":items.get(position).getProductName().toString());
         itemCount.setText(items.get(position).getProductId()==null?"":items.get(position).getItemCount().toString());
         brand.setText(items.get(position).getBrandName()==null?"":items.get(position).getBrandName().toString());

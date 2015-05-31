@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.util.HashSet;
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.R;
@@ -19,10 +22,12 @@ import babycare.android.scu.edu.mybabycare.events.DBModels.Event;
  */
 public class EventRowAdapter extends ArrayAdapter<Event> {
     private final List<Event> events;
+    CheckBox checkBox;
+    static HashSet<Integer> toDeleteEvents;
 
     public EventRowAdapter(Context context, int resource, List<Event> events) {
         super(context, resource, events);
-
+        toDeleteEvents = new HashSet<Integer>();
         System.out.println("items recieved count : " + events.size());
         this.events = events;
     }
@@ -34,6 +39,22 @@ public class EventRowAdapter extends ArrayAdapter<Event> {
         final View row = inflater.inflate(R.layout.event_row, null);
         TextView eventName = (TextView) row.findViewById(R.id.tv_eventName);
         TextView eventDate = (TextView) row.findViewById(R.id.tv_eventDate);
+
+        checkBox = (CheckBox)row.findViewById(R.id.chkEventId);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Event i = events.get(pos);
+                if(isChecked){
+
+                    toDeleteEvents.add(i.getEventId());
+                } else
+                {
+
+                    toDeleteEvents.remove(i.getEventId());
+                }
+            }
+        });
 
         eventName.setText(events.get(position).getEventName() == null ? "" : events.get(position).getEventName().toString());
         eventDate.setText(events.get(position).getEventDate() == null ? "" : events.get(position).getEventDate().toString());

@@ -77,6 +77,15 @@ public class EventDbHelper extends SQLiteOpenHelper {
         return events;
     }
 
+    //Delete Event
+
+    public void deleteEvent(Integer eventId) {
+        db = this.getWritableDatabase();
+        String whereClause = EventDbHelper.EVENT_ID + "="+eventId;
+        db.delete(EventDbHelper.DATABASE_TABLE,whereClause,null);
+        db.close();
+    }
+
     //update Event details
     public void updateEvent(Event event) {
         db = this.getWritableDatabase();

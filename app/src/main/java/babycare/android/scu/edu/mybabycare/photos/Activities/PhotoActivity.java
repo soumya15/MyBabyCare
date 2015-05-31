@@ -38,9 +38,13 @@ public class PhotoActivity extends Activity {
     private GridView gridView;
     private PhotoAdapter gridAdapter;
 
+    boolean photoSavePref;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_photo_main);
+
+        photoSavePref = getIntent().getExtras().getBoolean("PhotoPreference");
 
         mImage = (ImageView) findViewById(R.id.camera_image);
         mImage.setOnClickListener(new View.OnClickListener() {
@@ -126,16 +130,19 @@ public class PhotoActivity extends Activity {
 
                 //inserting photo in database
                 long id = help.insert(capturedPhoto,photoCaption);
-                //Store to gallery
-                Bitmap photoBitmap = BitmapFactory.decodeByteArray(capturedPhoto , 0, capturedPhoto.length);
-                MediaStore.Images.Media.insertImage(getContentResolver(), photoBitmap, "MyBaby"+id, photoCaption );
 
+                //Only if user wants to store it to gallery
+                if(photoSavePref) {
+                    //Store to gallery
+                    Bitmap photoBitmap = BitmapFactory.decodeByteArray(capturedPhoto, 0, capturedPhoto.length);
+                    MediaStore.Images.Media.insertImage(getContentResolver(), photoBitmap, "MyBaby" + id, photoCaption);
+                }
                 //Refreshing gridview after capturing new image
                 refreshGrid();
 
             } else {
 
-                Toast.makeText(this,"Image not saved",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Image not saved", Toast.LENGTH_SHORT).show();
 
             }
 

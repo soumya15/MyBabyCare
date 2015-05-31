@@ -2,10 +2,14 @@ package babycare.android.scu.edu.mybabycare.events.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.util.Iterator;
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.R;
@@ -18,17 +22,44 @@ import babycare.android.scu.edu.mybabycare.events.DBUtils.EventDbHelper;
 public class ViewEvents extends Activity {
 
     public static Event currentEvent = null;
+    ImageButton deleteEvent;
+    ListView listView;
+    List<Event> events = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_eventlist);
-        List<Event> events = null;
+
         final EventDbHelper eventDbHelper = new EventDbHelper(this);
         List<Event> eventList = eventDbHelper.getAllEvents();
-        ListView listView = (ListView) findViewById(R.id.eventListView);
+        listView = (ListView) findViewById(R.id.eventListView);
         listView.setAdapter(new EventRowAdapter(this, R.layout.event_row, eventList));
 
+        deleteEvent = (ImageButton)findViewById(R.id.img_deleteButton);
+        deleteEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Iterator itr = EventRowAdapter.toDeleteEvents.iterator();
+                while (itr.hasNext()){
+
+                    eventDbHelper.deleteEvent(Integer.parseInt(itr.next().toString()));
+
+                    Log.i("Deleted", "this event deleted");
+                }
+                refreshListView();
+
+            }
+        });
+
+    }
+
+    public void refreshListView() {
+        final EventDbHelper eventDbHelper = new EventDbHelper(this);
+        events = eventDbHelper.getAllEvents();
+        listView.setAdapter(null);
+        listView.setAdapter(new EventRowAdapter(this, R.layout.item_row, events));
+        Log.i("Refreshed","Refreshed after deletion");
     }
 
 

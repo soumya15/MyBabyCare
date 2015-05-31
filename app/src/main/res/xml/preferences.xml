@@ -7,4 +7,10 @@
         android:summary="Notification when you are near the location for picking up your needed item"
         android:defaultValue="true"/>
 
+    <SwitchPreference
+        android:key ="pref_photoToGallery"
+        android:title = "Save Photo to Gallery"
+        android:summary="When you take a photo in the app, save it to your Android's photo gallery"
+        android:defaultValue="true"/>
+
 </PreferenceScreen>

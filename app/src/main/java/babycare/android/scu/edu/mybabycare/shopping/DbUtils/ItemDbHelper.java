@@ -92,6 +92,13 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteItem(Integer prodId) {
+        db = this.getWritableDatabase();
+        String whereClause = ItemDbHelper.PRODUCT_ID + "="+prodId;
+        db.delete(ItemDbHelper.DATABASE_TABLE,whereClause,null);
+        db.close();
+    }
+
     // get all distinct brand names
     public List<String> getAllBrands() {
         List<String> brandNames = new ArrayList<String>();

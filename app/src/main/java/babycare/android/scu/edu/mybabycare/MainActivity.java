@@ -33,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
     private LocationManager locationManager = null;
     PendingIntent pendingIntent = null;
     boolean notifyPref;
+    boolean photoPref;
+
     SharedPreferences sharedPref=null;
     private PreferenceChangeListener mPreferenceListener = null;
 
@@ -48,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
         //Getting value of Location notification from preferences
         notifyPref = sharedPref.getBoolean(UserPreferencesFragment.KEY_PREF_NOTIFY_LOCATION, true);
-
+        photoPref = sharedPref.getBoolean(UserPreferencesFragment.KEY_PREF_PHOTO_SAVE, true);
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 
         handldeLocationNotification();
@@ -75,7 +77,11 @@ public class MainActivity extends ActionBarActivity {
         public void onSharedPreferenceChanged(SharedPreferences prefs,
                                               String key) {
             notifyPref = prefs.getBoolean(UserPreferencesFragment.KEY_PREF_NOTIFY_LOCATION, true);
+            photoPref = prefs.getBoolean(UserPreferencesFragment.KEY_PREF_PHOTO_SAVE, true);
+
             Log.i("Pref notify on change", String.valueOf(notifyPref));
+            Log.i("Pref photo on change", String.valueOf(photoPref));
+
             handldeLocationNotification();
         }
     }
@@ -111,6 +117,9 @@ public class MainActivity extends ActionBarActivity {
 
     public void openPhotoGallery(View view){
         Intent photoIntent = new Intent(this,PhotoActivity.class);
+        Bundle photoBundle = new Bundle();
+        photoBundle.putBoolean("PhotoPreference",photoPref);
+        photoIntent.putExtras(photoBundle);
         startActivity(photoIntent);
 
     }
