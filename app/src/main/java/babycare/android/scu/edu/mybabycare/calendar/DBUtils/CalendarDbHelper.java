@@ -32,7 +32,6 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
     public CalendarDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = this.getWritableDatabase();
-        onCreate(db);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -52,7 +51,7 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
         newValues.put(CalendarDbHelper.PARENT_EVENT_NAME, calendarEvent.getParentEventName());
         newValues.put(CalendarDbHelper.EVENT_NAME, calendarEvent.getEventName());
         newValues.put(CalendarDbHelper.EVENT_DATE, calendarEvent.getEventDate());
-        newValues.put(CalendarDbHelper.EVENT_DETAILS, calendarEvent.getEventDetails());
+        newValues.put(CalendarDbHelper.EVENT_DETAILS, calendarEvent.getEventDetails()!=null?calendarEvent.getEventDetails():"");
 
         long row = db.insert(CalendarDbHelper.DATABASE_TABLE, null, newValues);
         System.out.println("rows inserted"+row);
@@ -153,7 +152,7 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
         CalendarEvent calendarEvent = null;
         try {
             db = this.getWritableDatabase();
-            String[] resultColumns = {EVENT_ID, EVENT_NAME, EVENT_DATE, EVENT_DETAILS};
+            String[] resultColumns = {EVENT_ID, EVENT_NAME, EVENT_DATE, EVENT_DETAILS,PARENT_EVENT_ID, PARENT_EVENT_NAME};
             Cursor cursor = db.query(CalendarDbHelper.DATABASE_TABLE, resultColumns, whereClause, null, null, null, null);
 
             if (cursor == null) {
@@ -166,7 +165,7 @@ public class CalendarDbHelper extends SQLiteOpenHelper {
                 calendarEvent.setEventDate(cursor.getString(2));
                 calendarEvent.setEventDetails(cursor.getString(3));
                 calendarEvent.setParentEventID(cursor.getInt(4));
-                calendarEvent.setParentEventName(cursor.getString(4));
+                calendarEvent.setParentEventName(cursor.getString(5));
                 calendarEvents.add(calendarEvent);
             }
         }catch(Exception e){

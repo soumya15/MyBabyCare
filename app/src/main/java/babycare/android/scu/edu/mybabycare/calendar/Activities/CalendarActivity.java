@@ -156,7 +156,7 @@ public class CalendarActivity extends Activity implements View.OnClickListener {
         private final HashMap<String, List<CalendarEvent>> eventsPerMonthMap;
         private final List<CalendarEvent> calendarEvents;
         private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
-                "mm/dd/yyyy");
+                "dd-MMM-yyyy");
 
         // Days in Current Month
         public GridCellAdapter(Context context, int textViewResourceId,
@@ -384,6 +384,27 @@ public class CalendarActivity extends Activity implements View.OnClickListener {
             }
             if (day_color[1].equals("BLUE")) {
                 gridcell.setTextColor(getResources().getColor(R.color.orrange));
+                if ((!eventsPerMonthMap.isEmpty()) && (eventsPerMonthMap != null)) {
+                    if (eventsPerMonthMap.containsKey(theday)) {
+                        final List<CalendarEvent> ceList = eventsPerMonthMap.get(theday);
+                        gridcell.setBackgroundColor(getResources().getColor(R.color.navy));
+                        gridcell.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String eventList = "===Events===";
+                                int i =1;
+                                for(CalendarEvent ce:ceList){
+                                    eventList += "\n"+i++ +". "+ce.getEventName();
+                                }
+                                selectedDayMonthYearButton.setText("" + eventList);
+                            }
+                        });
+                        num_events_per_day = (TextView) row
+                                .findViewById(R.id.num_events_per_day);
+                        Integer numEvents = (Integer) ceList.size();
+                        num_events_per_day.setText(numEvents.toString());
+                    }
+                }
             }
             return row;
         }
