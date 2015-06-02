@@ -10,7 +10,7 @@
     <SwitchPreference
         android:key ="pref_photoToGallery"
         android:title = "Save Photo to Gallery"
-        android:summary="When you take a photo in the app, save it to your Android's photo gallery"
+        android:summary="When you take a photo in the app, save it to your Android's photo gallery and DropBox"
         android:defaultValue="true"/>
 
 </PreferenceScreen>

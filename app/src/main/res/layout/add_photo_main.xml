@@ -4,6 +4,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    <Button
+        android:id="@+id/auth_button"
+        android:text="Login to Dropbox"
+        android:layout_width="170dp"
+        android:layout_height="35dp"
+        android:background="#ffcfce52"
+        />
+    <Button
+        android:id="@+id/btn_deleteImages"
+        android:text="Delete All Photos"
+        android:layout_width="170dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#ffcfce52" />
+
     <ImageView android:id="@+id/camera_image"
         android:layout_width="60dp" android:layout_height="60dp"
         android:background="@drawable/camera_icon"
@@ -26,6 +43,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_above="@+id/camera_image"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/auth_button" />
 
 </RelativeLayout>

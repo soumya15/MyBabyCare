@@ -14,4 +14,6 @@ public class CommonConstants {
     public static final String ITEM_EVENT_NAME = "item";
     public static final String PROXIMITY_EVENT_NAME = "proximity";
     public static final String CHECKLIST_EVENT_NAME = "checklist";
+    public static final int CAPTION_RESULT_CODE = 102;
+    public static final int CAMERA_PIC_REQUEST = 1111;
 }
