@@ -39,6 +39,9 @@
     <string name="btn_savePhoto">Save</string>
     <string name="btn_cancel">Cancel</string>
     <string name="tv_photoCaption">Photo Caption</string>
-
+    <string name="train_voice">Train Baby\'s Voice</string>
+    <string name="add_lullabies">Add Lullabies</string>
+    <string name="naptime">Start Naptime</string>
+    <string name="doneTraining">DONE</string>
 
 </resources>

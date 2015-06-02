@@ -56,6 +56,10 @@ public class Scheduler {
         mBoundService.setNotification(c, title, message);
     }
 
+    public void cancelAlarmForNotification(Calendar c, String title, String message){
+        mBoundService.cancelNotification(c, title, message);
+    }
+
     /**
      * When you have finished with the service call this method to stop it
      * releasing your connection and resources

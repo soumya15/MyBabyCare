@@ -25,6 +25,7 @@
         android:id="@+id/btn_sleepGuide"
         android:background="#ffcfce52"
         android:textSize="15dp"
+        android:onClick="showSleepView"
         android:layout_alignTop="@+id/btn_shopList"
         android:layout_alignParentEnd="true"/>
     <Button

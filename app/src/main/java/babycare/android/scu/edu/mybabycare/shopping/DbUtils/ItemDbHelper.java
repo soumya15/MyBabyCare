@@ -52,7 +52,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     }
 
     //add a new item
-    public Item addItem(Item item) {
+    public long addItem(Item item) {
         db = this.getWritableDatabase();
         ContentValues newValues = new ContentValues();
         newValues.put(ItemDbHelper.PRODUCT_NAME, item.getProductName());
@@ -70,7 +70,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         long row = db.insert(ItemDbHelper.DATABASE_TABLE, null, newValues);
         System.out.println("rows inserted"+row);
         db.close();
-        return item;
+        return row;
     }
     //update Item details
     public void updateItem(Item item) {
