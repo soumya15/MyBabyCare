@@ -10,7 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class PhotoHelper extends SQLiteOpenHelper {
+public class PhotoDbHelper extends SQLiteOpenHelper {
     public static final String PHOTO_ID = "photo_id";
     public static final String PHOTO_BLOB = "photo_blob";
     public static final String PHOTO_CAPTION = "photo_caption";
@@ -21,7 +21,7 @@ public class PhotoHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE = String.format("CREATE TABLE IF NOT EXISTS %s (" + "  %s integer primary key autoincrement, " + "  %s blob," + "  %s text)", DATABASE_TABLE, PHOTO_ID, PHOTO_BLOB, PHOTO_CAPTION);
     public static SQLiteDatabase db = null;
 
-    public PhotoHelper(Context context) {
+    public PhotoDbHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA_VERSION);
     }
     @Override
@@ -35,13 +35,19 @@ public class PhotoHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
         onCreate(db);
     }
-    public Cursor getAll() {
+    public Cursor getAllPhotos() {
 
         db = this.getWritableDatabase();
 
         String[] resultColumns = {PHOTO_ID, PHOTO_BLOB, PHOTO_CAPTION};
-        Cursor cursor = db.query(PhotoHelper.DATABASE_TABLE, resultColumns, null, null, null, null, null);
+        Cursor cursor = db.query(PhotoDbHelper.DATABASE_TABLE, resultColumns, null, null, null, null, null);
         return cursor;
+    }
+    public void deletePhotos(){
+        db = this.getWritableDatabase();
+
+        db.delete(PhotoDbHelper.DATABASE_TABLE,null,null);
+        db.close();
     }
     public long insert(byte[] photoBytes, String photoCaption)
     {

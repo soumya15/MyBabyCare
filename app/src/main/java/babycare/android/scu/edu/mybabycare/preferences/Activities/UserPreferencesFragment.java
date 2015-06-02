@@ -9,6 +9,7 @@ import babycare.android.scu.edu.mybabycare.R;
  */
 public class UserPreferencesFragment extends PreferenceFragment {
     public static final String KEY_PREF_NOTIFY_LOCATION = "pref_notify_location";
+    public static final String KEY_PREF_PHOTO_SAVE = "pref_photoToGallery";
 
 
     @Override
