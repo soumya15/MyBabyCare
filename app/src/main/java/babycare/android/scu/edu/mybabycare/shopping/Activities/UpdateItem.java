@@ -1,7 +1,9 @@
 package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -18,6 +20,7 @@ import android.widget.ImageButton;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.CommonUtil;
@@ -65,6 +68,7 @@ public class UpdateItem extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Item item = new Item();
+                item.setProductId(currentItem.getProductId());
                 item.setProductName(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.et_prodName))));
                 item.setCategory(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.ed_category))));
                 item.setBrandName(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.act_brand))));
@@ -91,12 +95,41 @@ public class UpdateItem extends FragmentActivity {
                             // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
                             scheduler.setAlarmForNotification(c, "Time to buy a new item!!!" , calendarEvent.getEventName());
 
+                        }else {
+                            if(!item.getExpiryDate().equals(calendarEvent.getEventDate())) {
+                                calendarDbHelper.deleteCalendarEvent(calendarEvent.getEventID());
+                                Calendar c = Calendar.getInstance();
+                                c.setTimeInMillis(System.currentTimeMillis());
+                                c.set(Integer.parseInt(calendarEvent.getEventDate().split("/")[2]), Integer.parseInt(calendarEvent.getEventDate().split("/")[0])-1, Integer.parseInt(calendarEvent.getEventDate().split("/")[1]), 12, 00);
+                                scheduler.cancelAlarmForNotification(c, "Time to buy a new item!!!" , calendarEvent.getEventName());
+                                CalendarEvent newCE = new CalendarEvent(CommonConstants.ITEM_EVENT_NAME, item.getProductId(),"Expiry of "+item.getProductName()+" ("+item.getBrandName()+") ",item.getExpiryDate());
+                                calendarDbHelper = new CalendarDbHelper(v.getContext());
+                                calendarDbHelper.addEvent(newCE);
+                                Calendar c1 = Calendar.getInstance();
+                                c1.setTimeZone(TimeZone.getTimeZone("PST"));
+                                c1.setTimeInMillis(System.currentTimeMillis());
+                                c1.set(Integer.parseInt(item.getExpiryDate().split("/")[2]), Integer.parseInt(item.getExpiryDate().split("/")[0]), Integer.parseInt(item.getExpiryDate().split("/")[1]), 12, 45);
+                                //c1.setTimeZone(TimeZone.getTimeZone("PST"));
+                                // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
+                                scheduler.setAlarmForNotification(c1, "Time to buy a new item!!!" , calendarEvent.getEventName());
+                            }
                         }
 
                     }
-                    CommonUtil.showOKDialog("Item Updated Successfully",v.getContext());
-                    Intent searchItemsIntent = new Intent(v.getContext(),SearchList.class);
-                    startActivity(searchItemsIntent);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    alertDialogBuilder.setTitle("Baby Item:");
+                    alertDialogBuilder.setMessage("Item Added Successfully");
+                    alertDialogBuilder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                            Intent searchItemsIntent = new Intent(getBaseContext(),SearchList.class);
+                            startActivity(searchItemsIntent);
+                        }
+                    });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
 
                 }catch(Exception ex){
                     System.out.println("item update unsuccessful");
@@ -107,16 +140,14 @@ public class UpdateItem extends FragmentActivity {
         purchaseDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isPurchaseBtn = true;
-                showDatePicker();
+                showDatePicker("purchaseDate");
 
             }
         });
         expiryDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isExpiryBtn = true;
-                showDatePicker();
+                showDatePicker("expiryDate");
             }
         });
     }
@@ -153,7 +184,7 @@ public class UpdateItem extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private void showDatePicker() {
+    private void showDatePicker(String type) {
         date = "";
         DatePickerFragment date = new DatePickerFragment();
         /**
@@ -168,28 +199,32 @@ public class UpdateItem extends FragmentActivity {
         /**
          * Set Call back to capture selected date
          */
-        date.setCallBack(ondate);
+        if(type.equals("purchaseDate")){
+            date.setCallBack(onPurchaseDate);
+        } else {
+            date.setCallBack(onExpiryDate);
+        }
         date.show(getSupportFragmentManager(), "Date Picker");
     }
 
-    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+    DatePickerDialog.OnDateSetListener onPurchaseDate = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            int editView = 0;
-            date = String.valueOf(dayOfMonth) + "/" + String.valueOf(monthOfYear)+ "/" + String.valueOf(year);
-            if(isPurchaseBtn){
-                editView = R.id.purchaseDateTxt;
-                isPurchaseBtn = false;
-            }
-            if(isExpiryBtn){
-                editView = R.id.expiryDateTxt;
-                isExpiryBtn = false;
-            }
-
-            CommonUtil.setValueOfEditText(((EditText) findViewById(editView)),date);
+            date = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth)+ "/" + String.valueOf(year);
+            CommonUtil.setValueOfEditText(((EditText)findViewById(R.id.purchaseDateTxt)),date);
         }
     };
+
+    DatePickerDialog.OnDateSetListener onExpiryDate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            date = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth)+ "/" + String.valueOf(year);
+            CommonUtil.setValueOfEditText(((EditText)findViewById(R.id.expiryDateTxt)),date);
+        }
+    };
+
 
     public void selectStoreLocation(View view) {
         Intent mapIntent = new Intent(this, StoreLocation.class);

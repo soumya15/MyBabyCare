@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="141dp"
+        android:text="Record your baby&apos;s voice here and train the voice thrice. Your Baby&apos;s voice features will be used during naptime. Click train to finish voice training each time you record the voice "
+        android:id="@+id/textView2"
+        android:textColor="@android:color/black"
+        android:textStyle="italic"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_alignTop="@+id/btn_train"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="62dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="RECORD"
+            android:id="@+id/btn_train"
+            android:textSize="17dp"
+            android:layout_gravity="left"
+            android:background="#ffcfce52"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Train"
+            android:id="@+id/btnDone"
+            android:textSize="17dp"
+            android:layout_gravity="right"
+            android:background="#ffcfce52"
+            android:textStyle="bold"
+            android:layout_column="14"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="214dp"
+        android:layout_height="214dp"
+        android:id="@+id/trainImgView"
+        android:background="@drawable/trainvoice"
+        android:layout_above="@+id/btn_savevoice"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:text="SAVE VOICE"
+        android:id="@+id/btn_savevoice"
+        android:textSize="17dp"
+        android:gravity="center"
+        android:background="#ffcfce52"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/img_babyIcon"
+        android:layout_alignLeft="@+id/trainImgView"
+        android:layout_alignStart="@+id/trainImgView"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/img_babyIcon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:background="@drawable/baby_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtCounter"
+        android:layout_above="@+id/img_babyIcon"
+        android:layout_alignLeft="@+id/btn_savevoice"
+        android:layout_alignStart="@+id/btn_savevoice" />
+
+</LinearLayout>

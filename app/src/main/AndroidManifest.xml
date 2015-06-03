@@ -62,6 +62,18 @@
         <activity
             android:name=".photos.Activities.ViewPhotoDetails"
             android:label="Photo Details" />
+        <activity
+            android:name=".sleepguide.Activities.SleepListActivity"
+            android:label="Sleep list" />
+        <activity
+            android:name=".sleepguide.Activities.TrainVoiceActivity"
+            android:label="Train Voice" />
+        <activity
+            android:name=".sleepguide.Activities.AddLullabyActivity"
+            android:label="Record a lullaby" />
+        <activity
+            android:name=".sleepguide.Activities.NaptimeListenerActivity"
+            android:label="Naptime On" />
 
 
         <activity
@@ -110,6 +122,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

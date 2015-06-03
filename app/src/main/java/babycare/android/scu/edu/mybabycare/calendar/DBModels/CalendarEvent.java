@@ -1,5 +1,11 @@
 package babycare.android.scu.edu.mybabycare.calendar.DBModels;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by Soumya on 5/19/2015.
  */
@@ -87,5 +93,16 @@ public class CalendarEvent {
     }
 
     public CalendarEvent() {
+    }
+
+    public Date getExpiryDateFormat(){
+        DateFormat format = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = format.parse(getEventDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }

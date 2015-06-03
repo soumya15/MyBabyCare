@@ -48,6 +48,10 @@
     <string name="title_connecting">connecting...</string>
     <string name="title_connected_to">connected: </string>
     <string name="title_not_connected">not connected</string>
+    <string name="train_voice">Train Baby\'s Voice</string>
+    <string name="add_lullabies">Add Lullabies</string>
+    <string name="naptime">Start Naptime</string>
+    <string name="doneTraining">DONE</string>
 
     <!--  DeviceListActivity -->
     <string name="scanning">scanning for devices...</string>

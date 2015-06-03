@@ -1,10 +1,13 @@
 package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.ImageButton;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.CommonUtil;
@@ -74,25 +78,53 @@ public class AddNewItem extends FragmentActivity {
                 item.setStoreLatitude(String.valueOf(latitude));
                 item.setStoreLongitude(String.valueOf(longitude));
                 try {
-                    item = itemDbHelper.addItem(item);
+                    long rowID = itemDbHelper.addItem(item);
+                    item.setProductId((int)rowID);
+                    Log.d("ds","reminder set"+item.isReminderSet());
                     if(item.isReminderSet()){
+                        Log.d("ds","true");
                         if(item.getExpiryDate() != "") {
+                            Log.d("ds","true");
                             CalendarEvent calendarEvent = new CalendarEvent(CommonConstants.ITEM_EVENT_NAME, item.getProductId(), "Expiry of " + item.getProductName() + " (" + item.getBrandName() + ") ", item.getExpiryDate());
                             CalendarDbHelper calendarDbHelper = new CalendarDbHelper(v.getContext());
                             calendarDbHelper.addEvent(calendarEvent);
+                            Log.d("ds","done adding");
                             Calendar c = Calendar.getInstance();
-                            c.setTime(item.getExpiryDateFormat());
+                            c.setTimeInMillis(System.currentTimeMillis());
+                            c.clear();
+                            c.add(Calendar.YEAR, Integer.parseInt(item.getExpiryDate().split("/")[2]));
+                            c.add(Calendar.MONTH,Integer.parseInt(item.getExpiryDate().split("/")[0])-1);
+                            c.add(Calendar.DAY_OF_MONTH,Integer.parseInt(item.getExpiryDate().split("/")[1]));
+                            c.add(Calendar.HOUR,12);
+                            c.add(Calendar.MINUTE,50);
+                            c.setTimeZone(TimeZone.getTimeZone("PST"));
+                            //c.set(Integer.parseInt(item.getExpiryDate().split("/")[2]), Integer.parseInt(item.getExpiryDate().split("/")[0]), Integer.parseInt(item.getExpiryDate().split("/")[1]), 00,0);
+                            Log.d("ds","calendar instance");
+                            //c.setTime(item.getExpiryDateFormat());
+                            Log.d("ds","calendar get expiry");
                             // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
                             scheduler.setAlarmForNotification(c, "Time to buy a new item for your baby!!!" , calendarEvent.getEventName());
                         }
 
                     }
-                    CommonUtil.showOKDialog("Item Added Successfully",v.getContext());
-                    Intent searchItemsIntent = new Intent(v.getContext(),SearchList.class);
-                    startActivity(searchItemsIntent);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                    alertDialogBuilder.setTitle("Baby Item:");
+                    alertDialogBuilder.setMessage("Item Added Successfully");
+                    alertDialogBuilder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                            Intent searchItemsIntent = new Intent(getBaseContext(),SearchList.class);
+                            startActivity(searchItemsIntent);
+                        }
+                    });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
 
                 }catch(Exception ex){
-                    System.out.println("item add unsuccessful");
+                    System.out.println("item add unsuccessful"+ex);
                 }
 
             }
@@ -198,6 +230,11 @@ public class AddNewItem extends FragmentActivity {
         if(scheduler != null)
             scheduler.doUnbindService();
         super.onStop();
+    }
+
+    public void showSearchIntent(){
+        Intent searchItemsIntent = new Intent(this,SearchList.class);
+        startActivity(searchItemsIntent);
     }
 }
 

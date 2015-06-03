@@ -4,9 +4,14 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
+/**
+ * Created by Soumya on 5/20/2015.
+ */
 
 public class NotificationThread implements Runnable{
     // The date selected for the alarm
@@ -28,6 +33,8 @@ public class NotificationThread implements Runnable{
 
     @Override
     public void run() {
+
+        long notifyTime = date.getTimeInMillis();
         // Request to start are service when the alarm date is upon us
         // We don't start an activity as we just want to pop up a notification into the system bar not a full activity
         Intent intent = new Intent(context, NotifyService.class);
@@ -35,11 +42,9 @@ public class NotificationThread implements Runnable{
         intent.putExtra(NotifyService.NOTIFICATION_TITLE, title);
         intent.putExtra(NotifyService.NOTIFICATION_MESSAGE, message);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.SECOND, 60);
-        long firstTime = c.getTimeInMillis();
-
+        Log.d("time set in millis: ",""+notifyTime);
+        Log.d("time set in millis: ",""+notifyTime);
         // Sets an alarm - note this alarm will be lost if the phone is turned off and on again
-        am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        am.set(AlarmManager.RTC_WAKEUP, notifyTime, pendingIntent);
     }
 }

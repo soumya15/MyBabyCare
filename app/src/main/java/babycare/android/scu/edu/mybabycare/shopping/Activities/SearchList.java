@@ -1,10 +1,10 @@
 package babycare.android.scu.edu.mybabycare.shopping.Activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +16,17 @@ import android.widget.ListView;
 import java.util.Iterator;
 import java.util.List;
 
+import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.R;
+import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
+import babycare.android.scu.edu.mybabycare.calendar.DBUtils.CalendarDbHelper;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 import babycare.android.scu.edu.mybabycare.shopping.DbUtils.ItemDbHelper;
 
 /**
  * Created by akshu on 5/8/15.
  */
-public class SearchList extends Activity {
+public class SearchList extends ActionBarActivity {
     public static Item currentItem = null;
     ImageButton deleteItem;
     ListView listView;
@@ -36,6 +39,7 @@ public class SearchList extends Activity {
         setContentView(R.layout.search_items);
         c = getApplicationContext();
         final ItemDbHelper itemDbHelper = new ItemDbHelper(this);
+        final CalendarDbHelper calendarDbHelper = new CalendarDbHelper(this);
         final EditText searchText = (EditText)findViewById(R.id.editTextSearch);
         Button searchBtn = (Button)findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +61,13 @@ public class SearchList extends Activity {
                     public void onClick(View v) {
                         Iterator itr = ItemsRowAdapter.toDeleteSet.iterator();
                         while (itr.hasNext()){
-
-                            itemDbHelper.deleteItem(Integer.parseInt(itr.next().toString()));
+                            int prodID = Integer.parseInt(itr.next().toString());
+                            CalendarEvent calendarEvent;
+                            calendarEvent = calendarDbHelper.getCalendarEventByParentId(prodID, CommonConstants.ITEM_EVENT_NAME);
+                            if(calendarEvent != null) {
+                                calendarDbHelper.deleteCalendarEvent(calendarEvent.getEventID());
+                            }
+                            itemDbHelper.deleteItem(prodID);
 
                             Log.i("Deleted", "this product deleted");
                         }
@@ -75,7 +84,7 @@ public class SearchList extends Activity {
         items = itemDbHelper.getAllItems("");
         listView.setAdapter(null);
         listView.setAdapter(new ItemsRowAdapter(this, R.layout.item_row, items));
-        Log.i("Refreshed","Refreshed after deletion");
+        Log.i("Refreshed", "Refreshed after deletion");
     }
 
     public void openAddView(View view){

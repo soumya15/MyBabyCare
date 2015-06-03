@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +17,7 @@ import android.view.View;
 import java.util.Iterator;
 import java.util.List;
 
+import babycare.android.scu.edu.mybabycare.sleepguide.Activities.SleepListActivity;
 import babycare.android.scu.edu.mybabycare.calendar.Activities.CalendarActivity;
 import babycare.android.scu.edu.mybabycare.events.Activities.EventList;
 import babycare.android.scu.edu.mybabycare.photos.Activities.PhotoActivity;
@@ -170,6 +172,12 @@ public class MainActivity extends ActionBarActivity {
             Log.v("ProximitAlert", "Message: " +"removing  alert: " +  item_name);
             locationManager.removeProximityAlert(pendingIntent);
         }
+
+    }
+    public void showSleepView(View view){
+        Intent intent = new Intent(this,SleepListActivity.class);
+        startActivity(intent);
+
     }
 
     @Override

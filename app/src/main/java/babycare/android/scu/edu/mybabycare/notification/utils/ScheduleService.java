@@ -4,6 +4,8 @@ package babycare.android.scu.edu.mybabycare.notification.utils;
  * Created by Soumya on 5/20/2015.
  */
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -42,5 +44,17 @@ public class ScheduleService extends Service {
         // This starts a new thread to set the notification
         // You want to push off your tasks onto a new thread to free up the UI to carry on responding
         new NotificationThread(this, c, title, message).run();
+    }
+
+    public void cancelNotification(Calendar c, String title, String message) {
+        // This starts a new thread to set the notification
+        // You want to push off your tasks onto a new thread to free up the UI to carry on responding
+        Intent intent = new Intent(getApplicationContext(), NotifyService.class);
+        intent.putExtra(NotifyService.INTENT_NOTIFY, true);
+        intent.putExtra(NotifyService.NOTIFICATION_TITLE, title);
+        intent.putExtra(NotifyService.NOTIFICATION_MESSAGE, message);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(getApplicationContext().ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
     }
 }
