@@ -43,8 +43,9 @@ public class EventDbHelper extends SQLiteOpenHelper {
         }
 
         //add a new event
-        public boolean addEvent(Event event) {
+        public long addEvent(Event event) {
             db = this.getWritableDatabase();
+            db.execSQL(DATABASE_CREATE);
             ContentValues newEvent = new ContentValues();
             newEvent.put(EventDbHelper.EVENT_NAME, (event.getEventName()));
             newEvent.put(EventDbHelper.EVENT_DATE, event.getEventDate());
@@ -52,8 +53,10 @@ public class EventDbHelper extends SQLiteOpenHelper {
             long row = db.insert(EventDbHelper.DATABASE_TABLE, null, newEvent);
             System.out.println("Event row inserted"+row);
             db.close();
-            return true;
+            return row;
         }
+
+
     //get All events
     public List<Event> getAllEvents() {
         List<Event> events = new ArrayList<Event>();

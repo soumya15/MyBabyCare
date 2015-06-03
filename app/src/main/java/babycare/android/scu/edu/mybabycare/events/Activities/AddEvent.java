@@ -1,8 +1,10 @@
 package babycare.android.scu.edu.mybabycare.events.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,8 +14,11 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import babycare.android.scu.edu.mybabycare.CommonConstants;
 import babycare.android.scu.edu.mybabycare.CommonUtil;
 import babycare.android.scu.edu.mybabycare.R;
+import babycare.android.scu.edu.mybabycare.calendar.DBModels.CalendarEvent;
+import babycare.android.scu.edu.mybabycare.calendar.DBUtils.CalendarDbHelper;
 import babycare.android.scu.edu.mybabycare.events.DBModels.Event;
 import babycare.android.scu.edu.mybabycare.events.DBUtils.EventDbHelper;
 import babycare.android.scu.edu.mybabycare.shopping.Activities.DatePickerFragment;
@@ -53,13 +58,25 @@ public class AddEvent extends FragmentActivity {
                 event.setEventDetails(CommonUtil.getValueFromEditText(addEventDetails));
 
                 try {
-                    eventDbHelper.addEvent(event);
+                    long rowID = eventDbHelper.addEvent(event);
+                    event.setEventId((int)rowID);
+                    if(event.getEventDate() != "") {
+                        Log.d("ds", "true");
+                        CalendarEvent calendarEvent = new CalendarEvent(CommonConstants.CHECKLIST_EVENT_NAME, event.getEventId(),"Your Event" + event.getEventName() + "is approaching!!", event.getEventDate());
+                        CalendarDbHelper calendarDbHelper = new CalendarDbHelper(v.getContext());
+                        calendarDbHelper.addEvent(calendarEvent);
+                        Log.d("ds","done adding");
+
+                    }
                     Toast.makeText(getBaseContext(),"Event created successfully",Toast.LENGTH_LONG).show();
                 } catch (Exception e){
                     System.out.println("Event add unsuccessful");
                     System.out.println(e.getMessage());
                     e.printStackTrace();
                 }
+
+                Intent listEventIntent = new Intent(getBaseContext(),EventList.class);
+                startActivity(listEventIntent);
             }
         });
 

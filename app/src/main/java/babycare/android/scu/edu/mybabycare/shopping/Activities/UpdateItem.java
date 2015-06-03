@@ -47,7 +47,7 @@ public class UpdateItem extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //initialize the DB helper class obje\]ct
+        //initialize the DB helper class object
         final Item currentItem = SearchList.currentItem;
 
         // Create a new service client and bind our activity to this service
@@ -77,7 +77,7 @@ public class UpdateItem extends FragmentActivity {
                 item.setFavorite(CommonUtil.isCheckBoxSelected(((CheckBox) findViewById(R.id.cb_favorites))));
                 item.setExpiryDate(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.expiryDateTxt))));
                 item.setPurchaseDate(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.purchaseDateTxt))));
-                item.setStoreAddress(CommonUtil.getValueFromEditText(((EditText)findViewById(R.id.et_storeLocation))));
+                item.setStoreAddress(CommonUtil.getValueFromEditText(((EditText) findViewById(R.id.et_storeLocation))));
                 item.setStoreLatitude(String.valueOf(latitude));
                 item.setStoreLongitude(String.valueOf(longitude));
                 try {
@@ -161,6 +161,7 @@ public class UpdateItem extends FragmentActivity {
         CommonUtil.setCheckBoxSelected((CheckBox) findViewById(R.id.cb_favorites), item.isFavorite());
         CommonUtil.setValueOfEditText((EditText) findViewById(R.id.expiryDateTxt), item.getExpiryDate());
         CommonUtil.setValueOfEditText((EditText) findViewById(R.id.purchaseDateTxt), item.getPurchaseDate());
+        CommonUtil.setValueOfEditText((EditText) findViewById(R.id.et_storeLocation), item.getStoreAddress());
     }
 
     @Override
