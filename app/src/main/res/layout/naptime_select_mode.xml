@@ -1,0 +1,104 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical" tools:context=".MainActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Its Naptime!!  1.You can choose to sing a song for your baby when you are away using the Walkie Talkie mode. 2.You can let the Naptime listener to look after your baby in the stand alone mode. It will start playing a selected lullaby for your baby when he/she is awake and starts crying"
+        android:id="@+id/textView"
+        android:layout_above="@+id/parentDevice"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="0.35"
+        android:textColor="@android:color/black"
+        android:textStyle="italic"
+        android:textSize="@dimen/abc_text_size_body_1_material" />
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="103dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="right"
+        android:background="@drawable/baby_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <RelativeLayout
+        android:layout_width="267dp"
+        android:layout_height="81dp"
+        android:layout_margin="@dimen/abc_action_bar_stacked_max_height">
+
+        <Button
+            android:id="@+id/parentDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parent Device"
+            android:onClick="startRecording"
+            android:background="#ffcfce52"
+            android:layout_weight="0.17"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/babyDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baby Device"
+            android:onClick="stopRecording"
+            android:background="#ffcfce52"
+            android:layout_weight="0.17"
+            android:layout_gravity="right"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Walkie Talkie Mode"
+            android:id="@+id/textView3"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold|italic"
+            android:textSize="@dimen/abc_text_size_body_1_material" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_margin="@dimen/abc_action_bar_progress_bar_size">
+
+        <Button
+            android:id="@+id/songSelectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select a Song"
+            android:onClick="startRecording"
+            android:background="#ffcfce52"
+            android:layout_weight="0.17"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stand Alone Mode"
+            android:id="@+id/textView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/abc_text_size_body_2_material"
+            android:textStyle="bold|italic" />
+    </RelativeLayout>
+
+</LinearLayout>

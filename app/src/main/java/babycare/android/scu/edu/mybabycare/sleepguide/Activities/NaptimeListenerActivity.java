@@ -155,7 +155,7 @@ public class NaptimeListenerActivity extends ActionBarActivity {
         List<User> tempList = new ArrayList<User>();
         tempList.add(new User(null, null, null, null, null, 0, null));
 
-        User compareUser = SleepListActivity.user;
+        User compareUser = NaptimeModeActivity.user;
 
         if (tempList.size() < 1 || compareUser == null)
         {
@@ -302,7 +302,7 @@ public class NaptimeListenerActivity extends ActionBarActivity {
                 Double distance = Double.parseDouble(bestResult.substring(bestResult.indexOf(":")+1, bestResult.length()));
                 if (distance<=50)
                 {
-                    play(SleepListActivity.songToPlay,player);
+                    play(NaptimeModeActivity.songToPlay,player);
                 }
                 else
                 {
@@ -341,7 +341,7 @@ public class NaptimeListenerActivity extends ActionBarActivity {
 
     private void stop(MediaPlayer player) {
         player.stop();
-        SleepListActivity.songToPlay = "";
+        NaptimeModeActivity.songToPlay = "";
         Log.i("played","STOPPPED");
     }
 
