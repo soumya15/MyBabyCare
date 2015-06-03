@@ -16,4 +16,11 @@ public class CommonConstants {
     public static final String CHECKLIST_EVENT_NAME = "checklist";
     public static final int CAPTION_RESULT_CODE = 102;
     public static final int CAMERA_PIC_REQUEST = 1111;
+
+    // Message types sent from the Bluetooth Service Handler
+    public static final int MESSAGE_STATE_CHANGE = 1;
+    public static final int ITEM_RECEIVED = 2;
+    public static final int ITEM_SHARED = 3;
+    public static final int MESSAGE_DEVICE_NAME = 4;
+    public static final int MESSAGE_TOAST = 5;
 }

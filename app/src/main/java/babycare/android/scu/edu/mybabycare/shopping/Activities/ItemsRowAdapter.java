@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import babycare.android.scu.edu.mybabycare.R;
+import babycare.android.scu.edu.mybabycare.bluetooth.Activity.ShareItem;
 import babycare.android.scu.edu.mybabycare.shopping.DBModels.Item;
 
 /**
@@ -26,6 +27,7 @@ public class ItemsRowAdapter extends ArrayAdapter<Item> {
     private final List<Item> items;
     CheckBox checkBox;
     static HashSet<Integer> toDeleteSet;
+    Button shareItem;
 
     public ItemsRowAdapter(Context context, int resource, List<Item> items) {
         super(context, resource, items);
@@ -44,6 +46,7 @@ public class ItemsRowAdapter extends ArrayAdapter<Item> {
         TextView itemCount = (TextView) row.findViewById(R.id.textViewItemCount);
         TextView brand = (TextView) row.findViewById(R.id.textViewBrandName);
         TextView category = (TextView) row.findViewById(R.id.textViewCategory);
+        shareItem = (Button)row.findViewById(R.id.btmItemShare);
         checkBox = (CheckBox)row.findViewById(R.id.chkProdId);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -76,6 +79,15 @@ public class ItemsRowAdapter extends ArrayAdapter<Item> {
                 Intent myIntent = new Intent(v.getContext(),UpdateItem.class);
                 SearchList.currentItem = items.get(pos);
                 v.getContext().startActivity(myIntent);
+            }
+        });
+
+        shareItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bluetoothIntent = new Intent(v.getContext(),ShareItem.class);
+                SearchList.currentItem = items.get(pos);
+                v.getContext().startActivity(bluetoothIntent);
             }
         });
         return row;

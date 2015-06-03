@@ -13,17 +13,17 @@
         android:text="@string/btn_shop_list"
         android:id="@+id/btn_shopList"
         android:layout_marginTop="28dp"
-        android:background="#ffcfce52"
         android:textSize="15dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:onClick="openShoppingList"/>
+        android:onClick="openShoppingList"
+        android:background="@drawable/custom_button" />
     <Button
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:text="@string/btn_sleep_guide"
         android:id="@+id/btn_sleepGuide"
-        android:background="#ffcfce52"
+        android:background="@drawable/custom_button"
         android:textSize="15dp"
         android:layout_alignTop="@+id/btn_shopList"
         android:layout_alignParentEnd="true"/>
@@ -35,7 +35,7 @@
         android:layout_below="@+id/btn_shopList"
         android:layout_alignEnd="@+id/btn_shopList"
         android:layout_marginTop="50dp"
-        android:background="#ffcfce52"
+        android:background="@drawable/custom_button"
         android:textSize="15dp"
         android:onClick="openCheckList" />
     <Button
@@ -43,7 +43,7 @@
         android:layout_height="85dp"
         android:text="@string/btn_calendar"
         android:id="@+id/btn_calendar"
-        android:background="#ffcfce52"
+        android:background="@drawable/custom_button"
         android:textSize="15dp"
         android:onClick="openCalendar"
         android:layout_alignTop="@+id/btn_checkList"
@@ -55,13 +55,11 @@
         android:layout_height="85dp"
         android:text="@string/btn_baby_photos"
         android:id="@+id/btn_babyPhotos"
-        android:background="#ffcfce52"
+        android:background="@drawable/custom_button"
         android:textSize="15dp"
-        android:layout_below="@+id/btn_checkList"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp"
-        android:onClick="openPhotoGallery" />
+        android:onClick="openPhotoGallery"
+        android:layout_above="@+id/img_babyIcon"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="100dp"

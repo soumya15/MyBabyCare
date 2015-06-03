@@ -13,4 +13,10 @@
         android:summary="When you take a photo in the app, save it to your Android's photo gallery and DropBox"
         android:defaultValue="true"/>
 
+    <EditTextPreference
+        android:key = "pref_daysToNotify"
+        android:title = "Reminder before Expiry"
+        android:summary ="Enter number of days before which you want to submit the reminder"
+        android:defaultValue="2"/>
+
 </PreferenceScreen>

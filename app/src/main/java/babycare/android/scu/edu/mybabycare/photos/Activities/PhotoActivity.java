@@ -321,9 +321,9 @@ public class PhotoActivity extends Activity {
     private void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
         if (loggedIn) {
-            linkedToDB.setText(LOGIN_DROPBOX);
-        } else {
             linkedToDB.setText(LOGOUT_DROPBOX);
+        } else {
+            linkedToDB.setText(LOGIN_DROPBOX);
         }
     }
 

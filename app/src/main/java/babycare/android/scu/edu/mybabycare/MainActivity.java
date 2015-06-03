@@ -142,9 +142,11 @@ public class MainActivity extends ActionBarActivity {
         Iterator<Item> proximityItr = proximityAlertItems.iterator();
         while(proximityItr.hasNext()){
             Item i = proximityItr.next();
+            if(i.getStoreLatitude() !=null && i.getStoreLongitude() !=null ){
+                addRemoveProximityAlert(Double.parseDouble(i.getStoreLatitude()),
+                        Double.parseDouble(i.getStoreLongitude()), i.getProductId(), i.getProductName(),set);
+            }
 
-            addRemoveProximityAlert(Double.parseDouble(i.getStoreLatitude()),
-                    Double.parseDouble(i.getStoreLongitude()), i.getProductId(), i.getProductName(),set);
         }
     }
 

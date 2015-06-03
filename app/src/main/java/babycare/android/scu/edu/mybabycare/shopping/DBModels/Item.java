@@ -1,5 +1,9 @@
 package babycare.android.scu.edu.mybabycare.shopping.DBModels;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +13,7 @@ import java.util.Locale;
 /**
  * Created by Soumya on 5/11/2015.
  */
-public class Item {
+public class Item implements Serializable{
     private Integer productId;
     private String productName;
     private String category;
@@ -160,4 +164,10 @@ public class Item {
         return date;
     }
 
+    public byte[] serialize() throws IOException {
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        ObjectOutputStream o = new ObjectOutputStream(b);
+        o.writeObject(this);
+        return b.toByteArray();
+    }
 }
