@@ -258,7 +258,7 @@ public class ShareItem extends Activity {
 
                     //Add Item to local db of the receiving user
                     try {
-                        receivedItem = itemDbHelper.addItem(receivedItem);
+                        itemDbHelper.addItem(receivedItem);
                         if(receivedItem.isReminderSet()){
                             if(receivedItem.getExpiryDate() != "") {
                                 CalendarEvent calendarEvent = new CalendarEvent(CommonConstants.ITEM_EVENT_NAME, receivedItem.getProductId(), "Expiry of " + receivedItem.getProductName() + " (" + receivedItem.getBrandName() + ") ", receivedItem.getExpiryDate());
