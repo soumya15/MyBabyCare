@@ -1,31 +1,24 @@
 package babycare.android.scu.edu.mybabycare.sleepguide.Activities;
 
-import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import babycare.android.scu.edu.mybabycare.CommonRowObject;
-import babycare.android.scu.edu.mybabycare.ImgNameRowAdapter;
 import babycare.android.scu.edu.mybabycare.R;
 import babycare.android.scu.edu.mybabycare.sleepguide.VoiceIdent.database.User;
 import babycare.android.scu.edu.mybabycare.sleepguide.VoiceIdent.main.TTS;
