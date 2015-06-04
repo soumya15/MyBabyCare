@@ -23,6 +23,10 @@ public class PhotoDbHelper extends SQLiteOpenHelper {
 
     public PhotoDbHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA_VERSION);
+        db = this.getWritableDatabase();
+        db.execSQL(DATABASE_CREATE);
+
+
     }
     @Override
     public void onCreate(SQLiteDatabase db) {

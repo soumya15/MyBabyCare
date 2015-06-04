@@ -29,6 +29,8 @@ public class EventDbHelper extends SQLiteOpenHelper {
         public EventDbHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
             db = this.getWritableDatabase();
+            db.execSQL(DATABASE_CREATE);
+
         }
 
         @Override

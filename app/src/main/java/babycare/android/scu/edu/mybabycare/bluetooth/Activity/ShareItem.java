@@ -101,13 +101,13 @@ public class ShareItem extends Activity {
         super.onStart();
 
         // If BT is not on, request that it be enabled.
-        // setupChat() will then be called during onActivityResult
+        // setUpItemSend() will then be called during onActivityResult
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
             // Otherwise, setup the chat session
         } else {
-            if (shareItemService == null) setupChat();
+            if (shareItemService == null) setUpItemSend();
         }
     }
 
@@ -125,7 +125,7 @@ public class ShareItem extends Activity {
         }
     }
 
-    private void setupChat() {
+    private void setUpItemSend() {
 
         // Initialize the send button with a listener that for click events
         shareItemBtn = (Button) findViewById(R.id.button_send);
@@ -311,7 +311,7 @@ public class ShareItem extends Activity {
                 // When the request to enable Bluetooth returns
                 if (resultCode == Activity.RESULT_OK) {
                     // Bluetooth is now enabled, so set up a chat session
-                    setupChat();
+                    setUpItemSend();
                 } else {
                     // User did not enable Bluetooth or an error occured
                     Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
